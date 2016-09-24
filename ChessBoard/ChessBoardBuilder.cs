@@ -3,7 +3,7 @@
 namespace ChessBoard
 {
 	public static class ChessBoardBuilder
-	{ 
+	{
 		public static BoardCell[,] GetStartPositionChessBoard()
 		{
 			BoardCell[,] chessboard = new BoardCell[8, 8];

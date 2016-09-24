@@ -2,10 +2,10 @@
 
 namespace ChessBoard
 {
-    public class ChessBoard
-    {
+	public class ChessBoard
+	{
 		public BoardCell[,] Chessboard { get; }
-	    public GameStatus Status = GameStatus.Normal;
+		public GameStatus Status = GameStatus.Normal;
 
 		public ChessBoard()
 		{
@@ -13,8 +13,8 @@ namespace ChessBoard
 		}
 
 		public string GetSerializedChessBoard()
-	    {
-		    return JsonConvert.SerializeObject(this);
+		{
+			return JsonConvert.SerializeObject(this);
 		}
 	}
 }

@@ -18,7 +18,7 @@
 			if (obj == null)
 				return false;
 
-			var chessmen = (BaseChessman) obj;
+			var chessmen = (BaseChessman)obj;
 
 			return chessmen.Color == Color && chessmen.Type == Type;
 		}

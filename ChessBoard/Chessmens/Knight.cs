@@ -1,6 +1,6 @@
 ﻿namespace ChessBoard.Chessmens
 {
-	public class Knight: BaseChessman
+	public class Knight : BaseChessman
 	{
 		public override ChessmenType Type => ChessmenType.Knight;
 

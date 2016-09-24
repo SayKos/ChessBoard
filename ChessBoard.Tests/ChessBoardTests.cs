@@ -4,7 +4,7 @@ namespace ChessBoard.Tests
 {
 	[TestFixture]
 	public class ChessBoardTests
-    {
+	{
 		[Test]
 		public void TestEmptyConstructor()
 		{
@@ -16,14 +16,14 @@ namespace ChessBoard.Tests
 		}
 
 		[Test]
-	    public void TestGetSerializedChessBoard()
-	    {
-		    ChessBoard board = new ChessBoard();
+		public void TestGetSerializedChessBoard()
+		{
+			ChessBoard board = new ChessBoard();
 
-		    string actualSerializedChessBoard = board.GetSerializedChessBoard();
+			string actualSerializedChessBoard = board.GetSerializedChessBoard();
 			string expectedSerializedChessBoard = TestData.GetSerializedChessBoardWithStartPosition();
 
 			Assert.AreEqual(expectedSerializedChessBoard, actualSerializedChessBoard);
-	    }
-    }
+		}
+	}
 }
