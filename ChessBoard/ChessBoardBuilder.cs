@@ -11,31 +11,31 @@ namespace ChessBoard
 
 			foreach (var row in startRows)
 			{
-				for (int collumn = 0; collumn <= 7; collumn++)
+				for (int column = 0; column <= 7; column++)
 				{
 					BaseChessman chessman = null;
 
 					if (IsStartPawnRow(row))
 						chessman = new Pawn();
 
-					else if (IsStartRookCell(row, collumn))
+					else if (IsStartRookCell(row, column))
 						chessman = new Rook();
 
-					else if (IsStartKnightCell(row, collumn))
+					else if (IsStartKnightCell(row, column))
 						chessman = new Knight();
 
-					else if (IsStartBishopCell(row, collumn))
+					else if (IsStartBishopCell(row, column))
 						chessman = new Bishop();
 
-					else if (IsStartQueenCell(row, collumn))
+					else if (IsStartQueenCell(row, column))
 						chessman = new Queen();
 
-					else if (IsStartKingCell(row, collumn))
+					else if (IsStartKingCell(row, column))
 						chessman = new King();
 
 					SetColor(chessman, row);
 
-					chessboard[row, collumn] = new BoardCell(row, collumn, chessman);
+					chessboard[row, column] = new BoardCell(row, column, chessman);
 				}
 			}
 
@@ -57,40 +57,40 @@ namespace ChessBoard
 			return row == 1 || row == 6;
 		}
 
-		static bool IsStartRookCell(int row, int collumn)
+		static bool IsStartRookCell(int row, int column)
 		{
-			return (row == 0 && collumn == 0)
-				|| (row == 0 && collumn == 7)
-				|| (row == 7 && collumn == 0)
-				|| (row == 7 && collumn == 7);
+			return (row == 0 && column == 0)
+				|| (row == 0 && column == 7)
+				|| (row == 7 && column == 0)
+				|| (row == 7 && column == 7);
 		}
 
-		static bool IsStartKnightCell(int row, int collumn)
+		static bool IsStartKnightCell(int row, int column)
 		{
-			return (row == 0 && collumn == 1)
-				|| (row == 0 && collumn == 6)
-				|| (row == 7 && collumn == 1)
-				|| (row == 7 && collumn == 6);
+			return (row == 0 && column == 1)
+				|| (row == 0 && column == 6)
+				|| (row == 7 && column == 1)
+				|| (row == 7 && column == 6);
 		}
 
-		static bool IsStartBishopCell(int row, int collumn)
+		static bool IsStartBishopCell(int row, int column)
 		{
-			return (row == 0 && collumn == 2)
-				|| (row == 0 && collumn == 5)
-				|| (row == 7 && collumn == 2)
-				|| (row == 7 && collumn == 5);
+			return (row == 0 && column == 2)
+				|| (row == 0 && column == 5)
+				|| (row == 7 && column == 2)
+				|| (row == 7 && column == 5);
 		}
 
-		static bool IsStartQueenCell(int row, int collumn)
+		static bool IsStartQueenCell(int row, int column)
 		{
-			return (row == 0 && collumn == 3)
-				|| (row == 7 && collumn == 3);
+			return (row == 0 && column == 3)
+				|| (row == 7 && column == 3);
 		}
 
-		static bool IsStartKingCell(int row, int collumn)
+		static bool IsStartKingCell(int row, int column)
 		{
-			return (row == 0 && collumn == 4)
-				|| (row == 7 && collumn == 4);
+			return (row == 0 && column == 4)
+				|| (row == 7 && column == 4);
 		}
 	}
 }

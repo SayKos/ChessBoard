@@ -5,13 +5,13 @@ namespace ChessBoard
 	public class BoardCell
 	{
 		public int Row { get; set; }
-		public int Collumn { get; set; }
+		public int Column { get; set; }
 		public BaseChessman Chessman { get; set; }
 
-		public BoardCell(int row, int collumn, BaseChessman chessman)
+		public BoardCell(int row, int column, BaseChessman chessman)
 		{
 			Row = row;
-			Collumn = collumn;
+			Column = column;
 			Chessman = chessman;
 		}
 
@@ -27,12 +27,12 @@ namespace ChessBoard
 
 			var cell = (BoardCell) obj;
 
-			return Chessman.Equals(cell.Chessman) && Row == cell.Row && Collumn == cell.Collumn;
+			return Chessman.Equals(cell.Chessman) && Row == cell.Row && Column == cell.Column;
 		}
 
 		public override int GetHashCode()
 		{
-			return Chessman.GetHashCode() ^ Row ^ Collumn;
+			return Chessman.GetHashCode() ^ Row ^ Column;
 		}
 	}
 }
