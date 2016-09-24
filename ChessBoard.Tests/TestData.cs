@@ -1,4 +1,6 @@
-﻿using ChessBoard.Chessmens;
+﻿using System;
+using System.IO;
+using ChessBoard.Chessmens;
 
 namespace ChessBoard.Tests
 {
@@ -47,6 +49,25 @@ namespace ChessBoard.Tests
 
 			for (int column = 0; column <= 7; column++)
 				chessboard[row, column] = new BoardCell(row, column, new Pawn(color));
+		}
+
+		public static string GetSerializedChessBoardWithStartPosition()
+		{
+			string json = string.Empty;
+
+			using (StreamReader r = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/StartPositions.json"))
+			{
+				json = r.ReadToEnd()
+					.Replace("\r\n", "")
+					.Replace("\\", "");
+			}
+
+			return GetJsonWithoutSymbolsAddedForReadability(json);
+		}
+
+		static string GetJsonWithoutSymbolsAddedForReadability(string json)
+		{
+			return json.Replace("\r\n", "").Replace("\\", "");
 		}
 	}
 }
