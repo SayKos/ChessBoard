@@ -49,6 +49,7 @@
     <Compile Include="ChessBoardBuilder.cs" />
     <Compile Include="Chessmens\BaseChessman.cs" />
     <Compile Include="Chessmens\Bishop.cs" />
+    <Compile Include="ChessmenType.cs" />
     <Compile Include="Chessmens\King.cs" />
     <Compile Include="Chessmens\Knight.cs" />
     <Compile Include="Chessmens\Pawn.cs" />

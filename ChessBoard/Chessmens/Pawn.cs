@@ -2,6 +2,8 @@
 {
 	public class Pawn: BaseChessman
 	{
+		public override ChessmenType Type => ChessmenType.Pawn;
+
 		public Pawn()
 		{ }
 
@@ -18,7 +20,7 @@
 
 		public override int GetHashCode()
 		{
-			return base.GetHashCode() ^ "Rook".GetHashCode();
+			return base.GetHashCode() ^ Type.GetHashCode();
 		}
 	}
 }

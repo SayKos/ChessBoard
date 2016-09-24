@@ -1,4 +1,4 @@
-﻿using Moq;
+﻿using ChessBoard.Chessmens;
 using NUnit.Framework;
 
 namespace ChessBoard.Tests
@@ -9,6 +9,8 @@ namespace ChessBoard.Tests
 		[Test]
 		public void TestEmptyConstructor()
 		{
+			Bishop b = new Bishop(Color.Black);
+
 			ChessBoard board = new ChessBoard();
 			var expectedChessboard = TestData.GetStartPositionChessBoard();
 

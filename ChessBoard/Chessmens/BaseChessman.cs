@@ -2,7 +2,8 @@
 {
 	public class BaseChessman
 	{
-		public Color Color { get; set; }
+		public Color Color { get; internal set; }
+		public virtual ChessmenType Type { get; }
 
 		public BaseChessman()
 		{ }
@@ -17,7 +18,9 @@
 			if (obj == null)
 				return false;
 
-			return ((BaseChessman) obj).Color == Color;
+			var chessmen = (BaseChessman) obj;
+
+			return chessmen.Color == Color && chessmen.Type == Type;
 		}
 
 		public override int GetHashCode()

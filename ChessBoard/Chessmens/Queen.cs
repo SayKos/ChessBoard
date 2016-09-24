@@ -2,6 +2,8 @@
 {
 	public class Queen : BaseChessman
 	{
+		public override ChessmenType Type => ChessmenType.Queen;
+
 		public Queen()
 		{ }
 
@@ -18,7 +20,7 @@
 
 		public override int GetHashCode()
 		{
-			return base.GetHashCode() ^ "Rook".GetHashCode();
+			return base.GetHashCode() ^ Type.GetHashCode();
 		}
 	}
 }
