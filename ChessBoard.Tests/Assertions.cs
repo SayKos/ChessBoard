@@ -10,7 +10,7 @@
 			{
 				for (int column = 0; column <= 7; column++)
 				{
-					if (expected[row, column] == null && actual[row, column] == null)
+					if (expected[row, column].Chessman == null && actual[row, column].Chessman == null)
 						continue;
 
 					if (expected[row, column] == null)

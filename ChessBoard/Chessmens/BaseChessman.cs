@@ -2,8 +2,8 @@
 {
 	public class BaseChessman
 	{
-		public Color Color { get; internal set; }
-		public virtual ChessmenType Type { get; }
+		public Color Color { get; set; }
+		public virtual ChessmenType Type { get; set; }
 
 		public BaseChessman()
 		{ }

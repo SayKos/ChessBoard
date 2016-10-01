@@ -8,10 +8,10 @@ namespace ChessBoard.Tests
 		[Test]
 		public void StartPositionChessBoardTest()
 		{
-			var actualChessboard = ChessBoardBuilder.GetStartPositionChessBoard();
+			var actualBoardCells = ChessBoardBuilder.GetStartPositionBoardCells();
 			var expectedChessboard = TestData.GetStartPositionChessBoard();
 
-			Assert.IsTrue(Assertions.AreBoardsMatch(expectedChessboard, actualChessboard), 
+			Assert.IsTrue(Assertions.AreBoardsMatch(actualBoardCells, expectedChessboard.BoardCells),
 				"StartPositionChessBoard should set initial positions for chessmens");
 		}
 	}
