@@ -1,4 +1,6 @@
-﻿namespace ChessBoard.Chessmens
+﻿using System;
+
+namespace ChessBoard.Chessmens
 {
 	public class BaseChessman
 	{
@@ -11,14 +13,6 @@
 		public BaseChessman(Color color)
 		{
 			Color = color;
-		}
-
-		protected bool IsCellInBound(int row, int collumn)
-		{
-			if (row < 0 || row > 7 || collumn < 0 || collumn > 7)
-				return false;
-
-			return true;
 		}
 
 		public override bool Equals(object obj)

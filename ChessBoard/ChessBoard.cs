@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using ChessBoard.Chessmens;
+using Newtonsoft.Json;
 
 namespace ChessBoard
 {
@@ -34,9 +36,15 @@ namespace ChessBoard
 			return JsonConvert.SerializeObject(this);
 		}
 
-		public void MoveChessman()
+		public void MoveChessman(BaseChessman chessman, Cell oldPosition, Cell newPosition, ChessmenType? newType = null)
 		{
-			
+			// todo: check if cell is acceptable for the chessman
+
+			if (chessman.Type == ChessmenType.Pawn &&  ((Pawn)chessman).IsLastRow(newPosition.Row))
+				chessman = ChessmanFactory.TryToConvertChessman(chessman, newType);
+
+			BoardCells[oldPosition.Row, oldPosition.Column].Chessman = null;
+			BoardCells[newPosition.Row, newPosition.Column].Chessman = chessman;
 		}
 	}
 }

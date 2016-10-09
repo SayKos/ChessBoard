@@ -145,9 +145,7 @@ namespace ChessBoard.Tests
 
 			using (StreamReader r = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/StartPositions.json"))
 			{
-				json = r.ReadToEnd()
-					.Replace("\r\n", "")
-					.Replace("\\", "");
+				json = r.ReadToEnd().Replace("\r\n", "");
 			}
 
 			return GetJsonWithoutSymbolsAddedForReadability(json);

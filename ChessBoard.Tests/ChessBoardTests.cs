@@ -44,6 +44,24 @@ namespace ChessBoard.Tests
 			Assert.AreEqual(expectedSerializedChessBoard, actualSerializedChessBoard);
 		}
 
+		[Test]
+		public void TestMoveChessman()
+		{
+			// todo: check throw exception if cell is not acceptable for the chessman
+
+			ChessBoard board = new ChessBoard();
+			board.SetStartPosition();
+
+			var pawn = board.BoardCells[6, 4].Chessman;
+			var oldCellForPawn = new Cell(6, 4);
+			var newCellForPawn = new Cell(4, 4);
+
+			board.MoveChessman(pawn, oldCellForPawn, newCellForPawn);
+
+			Assert.IsTrue(board.BoardCells[6, 4].IsEmpty(), "Old cell shoul be empty after movement");
+			Assert.AreEqual(board.BoardCells[4, 4].Chessman, pawn, "New position should have correct chessman");
+		}
+
 		static object[] GetTestChessBoards()
 		{
 			object[] result = new object[2];

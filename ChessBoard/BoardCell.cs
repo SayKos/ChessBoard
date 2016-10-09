@@ -4,21 +4,17 @@ namespace ChessBoard
 {
 	public class BoardCell : Cell
 	{
-
 		public BaseChessman Chessman { get; set; }
 
 		public BoardCell() { }
 
-		public BoardCell(int row, int column)
-		{
-			Row = row;
-			Column = column;
-		}
+		public BoardCell(int row, int column) 
+			: base(row, column)
+		{ }
 
 		public BoardCell(int row, int column, BaseChessman chessman)
+			: base(row, column)
 		{
-			Row = row;
-			Column = column;
 			Chessman = chessman;
 		}
 

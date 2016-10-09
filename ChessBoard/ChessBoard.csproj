@@ -48,6 +48,7 @@
     <Compile Include="Cell.cs" />
     <Compile Include="ChessBoard.cs" />
     <Compile Include="ChessBoardBuilder.cs" />
+    <Compile Include="ChessmanFactory.cs" />
     <Compile Include="Chessmens\BaseChessman.cs" />
     <Compile Include="Chessmens\Bishop.cs" />
     <Compile Include="ChessmenType.cs" />
