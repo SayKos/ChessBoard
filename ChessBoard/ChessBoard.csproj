@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardCell.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="ChessBoard.cs" />
     <Compile Include="ChessBoardBuilder.cs" />
     <Compile Include="Chessmens\BaseChessman.cs" />

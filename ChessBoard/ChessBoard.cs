@@ -33,5 +33,10 @@ namespace ChessBoard
 		{
 			return JsonConvert.SerializeObject(this);
 		}
+
+		public void MoveChessman()
+		{
+			
+		}
 	}
 }

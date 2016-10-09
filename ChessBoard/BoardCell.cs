@@ -2,10 +2,9 @@
 
 namespace ChessBoard
 {
-	public class BoardCell
+	public class BoardCell : Cell
 	{
-		public int Row { get; set; }
-		public int Column { get; set; }
+
 		public BaseChessman Chessman { get; set; }
 
 		public BoardCell() { }

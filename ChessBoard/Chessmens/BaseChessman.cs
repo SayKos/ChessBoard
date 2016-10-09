@@ -13,6 +13,14 @@
 			Color = color;
 		}
 
+		protected bool IsCellInBound(int row, int collumn)
+		{
+			if (row < 0 || row > 7 || collumn < 0 || collumn > 7)
+				return false;
+
+			return true;
+		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj == null)
