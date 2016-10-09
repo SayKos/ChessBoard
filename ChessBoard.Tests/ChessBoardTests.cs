@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using ChessBoard.Chessmens;
+using NUnit.Framework;
 
 namespace ChessBoard.Tests
 {
@@ -8,9 +10,7 @@ namespace ChessBoard.Tests
 		[Test]
 		public void TestSetStartPosition()
 		{
-			ChessBoard actualBoard = new ChessBoard();
-			actualBoard.SetStartPosition();
-
+			var actualBoard = TestData.CreateNewChessBoard();
 			var expectedChessBoard = TestData.GetStartPositionChessBoard();
 
 			Assert.IsTrue(Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells),
@@ -32,11 +32,19 @@ namespace ChessBoard.Tests
 				"Statuses should be equal");
 		}
 
+		static object[] GetTestChessBoards()
+		{
+			return new object[]
+			{
+				new object[] { TestData.CreateNewChessBoard(), TestData.GetStartPositionChessBoard() },
+				new object[] { TestData.GetChessBoardScenarioOneStatusNormal(), TestData.GetChessBoardScenarioOneStatusNormal() }
+			};
+		}
+
 		[Test]
 		public void TestGetSerializedChessBoard()
 		{
-			ChessBoard board = new ChessBoard();
-			board.SetStartPosition();
+			ChessBoard board = TestData.CreateNewChessBoard();
 
 			string actualSerializedChessBoard = board.GetSerializedChessBoard();
 			string expectedSerializedChessBoard = TestData.GetSerializedChessBoardWithStartPosition();
@@ -44,44 +52,46 @@ namespace ChessBoard.Tests
 			Assert.AreEqual(expectedSerializedChessBoard, actualSerializedChessBoard);
 		}
 
-		[Test]
-		public void TestMoveChessman()
+		[Test, TestCaseSource(nameof(GetTestMovements))]
+		public void TestMoveChessman(ChessBoard board, Cell oldCell, Cell newCell)
 		{
-			// todo: check throw exception if cell is not acceptable for the chessman
+			var chessman = board.BoardCells[oldCell.Row, oldCell.Column].Chessman;
 
-			ChessBoard board = new ChessBoard();
-			board.SetStartPosition();
+			board.MoveChessman(chessman, oldCell, newCell);
 
-			var pawn = board.BoardCells[6, 4].Chessman;
-			var oldCellForPawn = new Cell(6, 4);
-			var newCellForPawn = new Cell(4, 4);
-
-			board.MoveChessman(pawn, oldCellForPawn, newCellForPawn);
-
-			Assert.IsTrue(board.BoardCells[6, 4].IsEmpty(), "Old cell shoul be empty after movement");
-			Assert.AreEqual(board.BoardCells[4, 4].Chessman, pawn, "New position should have correct chessman");
+			Assert.IsTrue(board.BoardCells[oldCell.Row, oldCell.Column].IsEmpty(), "Old cell shoul be empty after movement");
+			Assert.AreEqual(board.BoardCells[newCell.Row, newCell.Column].Chessman, chessman, "New position should have correct chessman");
 		}
 
-		static object[] GetTestChessBoards()
+		static object[] GetTestMovements()
 		{
-			object[] result = new object[2];
-
-			ChessBoard initialBoard = new ChessBoard();
-			initialBoard.SetStartPosition();
-
-			result[0] = new object[]
+			return new object[]
 			{
-				initialBoard,
-				TestData.GetStartPositionChessBoard()
+				new object[] { TestData.CreateNewChessBoard(), new Cell(6, 4), new Cell(4, 4) },
+				new object[] { TestData.CreateNewChessBoard(), new Cell(0, 1), new Cell(2, 2) },
+				new object[] { TestData.GetChessBoardScenarioOneStatusNormal(), new Cell(2, 3), new Cell(1, 4) }
 			};
-
-			result[1] = new object[]
-			{
-				TestData.GetChessBoardScenarioOneStatusNormal(),
-				TestData.GetChessBoardScenarioOneStatusNormal()
-			};
-
-			return result;
 		}
+
+		[Test, TestCaseSource(nameof(GetTestFailParamsForMovements))]
+		public void TestMoveChessmanFailWhenChessmanIsNUll(BaseChessman chessman, Cell oldPosition, Cell newPosition)
+		{
+			ChessBoard board = TestData.CreateNewChessBoard();
+
+			Assert.Throws(typeof(ArgumentException), () => board.MoveChessman(chessman, oldPosition, newPosition));
+		}
+
+		static object[] GetTestFailParamsForMovements()
+		{
+			return new object[]
+			{
+				new object[] { null, new Cell(), new Cell() },
+				new object[] { new Pawn(), null, new Cell() },
+				new object[] { new Pawn(), new Cell(), null }
+			};
+		}
+
+		// todo: add test for pawn: for last row and white - ok - changed type
+		// todo: add test for pawn: for last row and black - ok - changed type
 	}
 }

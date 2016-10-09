@@ -6,6 +6,14 @@ namespace ChessBoard.Tests
 {
 	static class TestData
 	{
+		public static ChessBoard CreateNewChessBoard()
+		{
+			ChessBoard startBoard = new ChessBoard();
+			startBoard.SetStartPosition();
+
+			return startBoard;
+		}
+
 		//			  _________________________________
 		//		0	  |   |BR |   |   |BKI|BB |   |BR |
 		//		 	  _________________________________
