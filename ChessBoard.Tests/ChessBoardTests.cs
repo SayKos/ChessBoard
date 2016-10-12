@@ -13,8 +13,7 @@ namespace ChessBoard.Tests
 			var actualBoard = TestData.CreateNewChessBoard();
 			var expectedChessBoard = TestData.GetStartPositionChessBoard();
 
-			Assert.IsTrue(Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells),
-				"Empty constructor shoud set initial positions for chessmens");
+			Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells);
 
 			Assert.AreEqual(GameStatus.WhiteTurn, actualBoard.Status, "Empty constructor shoud set Normal game status");
 		}
@@ -25,8 +24,7 @@ namespace ChessBoard.Tests
 			string actualSerializedChessBoard = initialChessBoard.GetSerializedChessBoard();
 			ChessBoard actualBoard = new ChessBoard(actualSerializedChessBoard);
 
-			Assert.IsTrue(Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells),
-				"Constructor with deserialisation shoud set correct positions for chessmens and their types");
+			Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells);
 
 			Assert.AreEqual(expectedChessBoard.Status, actualBoard.Status,
 				"Statuses should be equal");

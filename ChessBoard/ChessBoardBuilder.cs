@@ -31,16 +31,6 @@ namespace ChessBoard
 			return chessboard;
 		}
 
-		static void SetColor(BaseChessman chessman, int row)
-		{
-			chessman.Color = IsStartBlackRow(row) ? Color.Black : Color.White;
-		}
-
-		static bool IsStartBlackRow(int row)
-		{
-			return row == 1 || row == 0;
-		}
-
 		public static void GetNormilizedBoardCells(BoardCell[,] boardCells)
 		{
 			for (int row = 0; row <= 7; row++)
@@ -55,6 +45,16 @@ namespace ChessBoard
 					boardCells[row, column].Chessman = ChessmanFactory.TryToCreateChessman(chessman.Color, chessman.Type);
 				}
 			}
+		}
+
+		static void SetColor(BaseChessman chessman, int row)
+		{
+			chessman.Color = IsStartBlackRow(row) ? Color.Black : Color.White;
+		}
+
+		static bool IsStartBlackRow(int row)
+		{
+			return row == 1 || row == 0;
 		}
 	}
 }

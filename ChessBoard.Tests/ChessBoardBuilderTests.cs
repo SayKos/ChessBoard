@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 
 namespace ChessBoard.Tests
 {
@@ -11,8 +12,20 @@ namespace ChessBoard.Tests
 			var actualBoardCells = ChessBoardBuilder.GetStartPositionBoardCells();
 			var expectedChessboard = TestData.GetStartPositionChessBoard();
 
-			Assert.IsTrue(Assertions.AreBoardsMatch(actualBoardCells, expectedChessboard.BoardCells),
-				"StartPositionChessBoard should set initial positions for chessmens");
+			Assertions.AreBoardsMatch(actualBoardCells, expectedChessboard.BoardCells);
+		}
+
+		[Test]
+		public void GetNormilizedBoardCellsTest()
+		{
+			ChessBoard initialChessBoard = TestData.GetStartPositionChessBoard();
+			string serializedChessboard = initialChessBoard.GetSerializedChessBoard();
+
+			ChessBoard deserialisedChessBoard = JsonConvert.DeserializeObject<ChessBoard>(serializedChessboard);
+
+			ChessBoardBuilder.GetNormilizedBoardCells(deserialisedChessBoard.BoardCells);
+
+			Assertions.AreBoardsMatch(initialChessBoard.BoardCells, deserialisedChessBoard.BoardCells);
 		}
 	}
 }

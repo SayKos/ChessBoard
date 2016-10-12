@@ -8,7 +8,7 @@ namespace ChessBoard
 
 		public BoardCell() { }
 
-		public BoardCell(int row, int column) 
+		public BoardCell(int row, int column)
 			: base(row, column)
 		{ }
 
@@ -28,7 +28,10 @@ namespace ChessBoard
 			if (!(obj is BoardCell))
 				return false;
 
-			var cell = (BoardCell) obj;
+			var cell = (BoardCell)obj;
+
+			if (Chessman.GetType() != cell.Chessman.GetType())
+				return false;
 
 			return Chessman.Equals(cell.Chessman) && Row == cell.Row && Column == cell.Column;
 		}
