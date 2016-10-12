@@ -36,7 +36,7 @@ namespace ChessBoard.Tests
 		//			
 		//			   0   1   2   3   4   5   6   7  
 
-		public static ChessBoard GetChessBoardScenarioOneStatusNormal()
+		public static ChessBoard GetChessBoardScenarioOneStatusWhiteTurn()
 		{
 			BoardCell[,] boardCells = new BoardCell[8, 8];
 
@@ -81,6 +81,80 @@ namespace ChessBoard.Tests
 		}
 
 		//			  _________________________________
+		//		0	  |   |   |   |   |BKI|   |   |   |
+		//		 	  _________________________________
+		//		1	  |   |   |   |   |   |   |   |WP |
+		//			  _________________________________
+		//		2	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		3	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		4	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		5	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		6	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		7	  |   |   |   |   |WKI|   |   |   |
+		//			  _________________________________
+		//
+		//
+		//			   0   1   2   3   4   5   6   7   
+
+		public static ChessBoard GetChessBoardScenarioTwoStatusWhiteTurn()
+		{
+			BoardCell[,] boardCells = new BoardCell[8, 8];
+
+			SetEmptyCells(boardCells, 0, 7);
+
+			boardCells[0, 4].Chessman = new King(Color.Black);
+			boardCells[7, 4].Chessman = new King(Color.White);
+			boardCells[1, 7].Chessman = new Pawn(Color.White);
+
+			ChessBoard chessBoard = new ChessBoard(boardCells);
+			chessBoard.Status = GameStatus.WhiteTurn;
+
+			return chessBoard;
+		}
+
+		//			  _________________________________
+		//		0	  |   |   |   |   |BKI|   |   |   |
+		//		 	  _________________________________
+		//		1	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		2	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		3	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		4	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		5	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		6	  |BP |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		7	  |   |   |   |   |WKI|   |   |   |
+		//			  _________________________________
+		//
+		//
+		//			   0   1   2   3   4   5   6   7   
+
+		public static ChessBoard GetChessBoardScenarioThreeStatusBlackTurn()
+		{
+			BoardCell[,] boardCells = new BoardCell[8, 8];
+
+			SetEmptyCells(boardCells, 0, 7);
+
+			boardCells[0, 4].Chessman = new King(Color.Black);
+			boardCells[7, 4].Chessman = new King(Color.White);
+			boardCells[6, 0].Chessman = new Pawn(Color.Black);
+
+			ChessBoard chessBoard = new ChessBoard(boardCells);
+			chessBoard.Status = GameStatus.BlackTurn;
+
+			return chessBoard;
+		}
+
+		//			  _________________________________
 		//		0	  |BR |BKN|BB |BQ |BKI|BB |BKN|BR |
 		//		 	  _________________________________
 		//		1	  |BP |BP |BP |BP |BP |BP |BP |BP |
@@ -99,7 +173,7 @@ namespace ChessBoard.Tests
 		//			  _________________________________
 		//			
 		//			
-		//			   0   1   2   3   4   5   6   7  
+		//			   0   1   2   3   4   5   6   7   
 
 		public static ChessBoard GetStartPositionChessBoard()
 		{

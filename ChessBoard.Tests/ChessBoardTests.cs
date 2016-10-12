@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ChessBoard.Chessmens;
 using NUnit.Framework;
 
@@ -34,7 +35,7 @@ namespace ChessBoard.Tests
 			return new object[]
 			{
 				new object[] { TestData.CreateNewChessBoard(), TestData.GetStartPositionChessBoard() },
-				new object[] { TestData.GetChessBoardScenarioOneStatusNormal(), TestData.GetChessBoardScenarioOneStatusNormal() }
+				new object[] { TestData.GetChessBoardScenarioOneStatusWhiteTurn(), TestData.GetChessBoardScenarioOneStatusWhiteTurn() }
 			};
 		}
 
@@ -66,7 +67,7 @@ namespace ChessBoard.Tests
 			{
 				new object[] { TestData.CreateNewChessBoard(), new Cell(6, 4), new Cell(4, 4) },
 				new object[] { TestData.CreateNewChessBoard(), new Cell(0, 1), new Cell(2, 2) },
-				new object[] { TestData.GetChessBoardScenarioOneStatusNormal(), new Cell(2, 3), new Cell(1, 4) }
+				new object[] { TestData.GetChessBoardScenarioOneStatusWhiteTurn(), new Cell(2, 3), new Cell(1, 4) }
 			};
 		}
 
@@ -88,7 +89,48 @@ namespace ChessBoard.Tests
 			};
 		}
 
-		// todo: add test for pawn: for last row and white - ok - changed type
-		// todo: add test for pawn: for last row and black - ok - changed type
+		[Test, TestCaseSource(nameof(GetTestPawnMovementsOnLastRow))]
+		public void TestMoveChessmanWhenWhitePawnShouldBeConverted(Cell oldPosition, Cell newPosition, GameStatus status)
+		{
+			var chessBoard = status == GameStatus.WhiteTurn 
+				? TestData.GetChessBoardScenarioTwoStatusWhiteTurn()
+				: TestData.GetChessBoardScenarioThreeStatusBlackTurn();
+
+			var newType = ChessmenType.Queen;
+
+			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+
+			chessBoard.MoveChessman(pawn, oldPosition, newPosition, newType);
+
+			var newChessman = chessBoard.BoardCells[newPosition.Row, newPosition.Column].Chessman;
+
+			Assert.AreEqual(typeof(Queen), newChessman.GetType(), "Types should be aqual");
+			Assert.AreEqual(newType, newChessman.Type, "Chessman types should be aqual");
+		}
+
+		static object[] GetTestPawnMovementsOnLastRow()
+		{
+			return new object[]
+			{
+				new object[] { new Cell(1, 7), new Cell(0, 7), GameStatus.WhiteTurn },
+				new object[] { new Cell(6, 0), new Cell(7, 0), GameStatus.BlackTurn }
+			};
+		}
+
+		[Test]
+		public void TestMoveChessmanFailWhenPawnOnLastRowButWithoutNewType()
+		{
+			var chessBoard = TestData.GetChessBoardScenarioTwoStatusWhiteTurn();
+
+			Cell oldPosition = new Cell(1, 7);
+			Cell newPosition = new Cell(0, 7);
+
+			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+
+			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(pawn, oldPosition, newPosition));
+		}
+
+		// todo: check switching turn after moving
+		// todo: fail if it's wrong turn while moving
 	}
 }
