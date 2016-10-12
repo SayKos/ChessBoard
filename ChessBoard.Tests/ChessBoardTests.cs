@@ -16,7 +16,7 @@ namespace ChessBoard.Tests
 			Assert.IsTrue(Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells),
 				"Empty constructor shoud set initial positions for chessmens");
 
-			Assert.AreEqual(GameStatus.Normal, actualBoard.Status, "Empty constructor shoud set Normal game status");
+			Assert.AreEqual(GameStatus.WhiteTurn, actualBoard.Status, "Empty constructor shoud set Normal game status");
 		}
 
 		[Test, TestCaseSource(nameof(GetTestChessBoards))]

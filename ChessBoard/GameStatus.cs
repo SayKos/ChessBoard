@@ -2,7 +2,8 @@
 {
 	public enum GameStatus
 	{
-		Normal,
+		WhiteTurn,
+		BlackTurn,
 		ShahForWhite,
 		ShahForBlack,
 		CheckmateForWhite,

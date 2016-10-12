@@ -28,7 +28,7 @@ namespace ChessBoard
 		public void SetStartPosition()
 		{
 			BoardCells = ChessBoardBuilder.GetStartPositionBoardCells();
-			Status = GameStatus.Normal;
+			Status = GameStatus.WhiteTurn;
 		}
 
 		public string GetSerializedChessBoard()
