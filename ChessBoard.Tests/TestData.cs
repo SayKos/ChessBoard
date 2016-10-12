@@ -74,7 +74,7 @@ namespace ChessBoard.Tests
 			boardCells[7, 6].Chessman = new King(Color.White);
 
 			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.Normal;
+			chessBoard.Status = GameStatus.WhiteTurn;
 
 			return chessBoard;
 		}
@@ -113,7 +113,7 @@ namespace ChessBoard.Tests
 			SetEmptyCells(boardCells, 2, 5);
 
 			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.Normal;
+			chessBoard.Status = GameStatus.WhiteTurn;
 
 			return chessBoard;
 		}
@@ -153,7 +153,7 @@ namespace ChessBoard.Tests
 
 			using (StreamReader r = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/StartPositions.json"))
 			{
-				json = r.ReadToEnd().Replace("\r\n", "");
+				json = r.ReadToEnd();
 			}
 
 			return GetJsonWithoutSymbolsAddedForReadability(json);
