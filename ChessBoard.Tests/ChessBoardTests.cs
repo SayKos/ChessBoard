@@ -26,8 +26,7 @@ namespace ChessBoard.Tests
 
 			Assertions.AreBoardsMatch(expectedChessBoard.BoardCells, actualBoard.BoardCells);
 
-			Assert.AreEqual(expectedChessBoard.Status, actualBoard.Status,
-				"Statuses should be equal");
+			Assert.AreEqual(expectedChessBoard.Status, actualBoard.Status, "Statuses should be equal");
 		}
 
 		static object[] GetTestChessBoards()

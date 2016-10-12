@@ -24,8 +24,6 @@ namespace ChessBoard.Tests
 					}
 				}
 			}
-
-			Assert.Pass();
 		}
 	}
 }

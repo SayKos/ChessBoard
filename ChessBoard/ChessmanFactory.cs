@@ -8,7 +8,7 @@ namespace ChessBoard
 		public static BaseChessman TryToConvertChessman(BaseChessman chessman, ChessmenType? newType)
 		{
 			if (!newType.HasValue)
-				throw new ArgumentException("New type should be set if it's pawn and last row");
+				throw new ArgumentException("New type should be set");
 
 			return TryToCreateChessman(chessman.Color, newType.Value);
 		}
@@ -28,7 +28,7 @@ namespace ChessBoard
 			throw new ArgumentException("Wrong ChessmenType. It is not possible to set correct chessman.");
 		}
 
-		public static BaseChessman TryToCreateChessman(int row, int column)
+		public static BaseChessman TryToCreateChessmanOnStartPosition(int row, int column)
 		{
 			if (IsStartPawnRow(row))
 				return new Pawn();
@@ -48,7 +48,7 @@ namespace ChessBoard
 			if (IsStartKingCell(row, column))
 				return new King();
 
-			throw new ArgumentException("Wrong row or column. It is not possible to set correct chessman.");
+			return null;
 		}
 
 		static bool IsStartPawnRow(int row)

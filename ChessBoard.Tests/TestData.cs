@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using ChessBoard.Chessmens;
 
@@ -162,6 +163,55 @@ namespace ChessBoard.Tests
 		static string GetJsonWithoutSymbolsAddedForReadability(string json)
 		{
 			return json.Replace("\r\n", "").Replace("\\", "");
+		}
+
+		public static IEnumerable<object> GetPawnStartPositionsAndExpectedTypes()
+		{
+			int[] pawnRows = new[] { 1, 6 };
+
+			for (int rowIndex = 0; rowIndex < pawnRows.Length; rowIndex++)
+				for (int column = 0; column <= 7; column++)
+					yield return new object[] { pawnRows[rowIndex], column, typeof(Pawn), ChessmenType.Pawn };
+		}
+
+		public static IEnumerable<object> GetRookStartPositionsAndExpectedTypes()
+		{
+			Cell[] rookCells = { new Cell(0, 0), new Cell(0, 7), new Cell(7, 0), new Cell(7, 7) };
+
+			foreach (var rookCell in rookCells)
+				yield return new object[] { rookCell.Row, rookCell.Column, typeof(Rook), ChessmenType.Rook };
+		}
+
+		public static IEnumerable<object> GetKnightStartPositionsAndExpectedTypes()
+		{
+			Cell[] rookCells = { new Cell(0, 1), new Cell(0, 6), new Cell(7, 1), new Cell(7, 6) };
+
+			foreach (var rookCell in rookCells)
+				yield return new object[] { rookCell.Row, rookCell.Column, typeof(Knight), ChessmenType.Knight };
+		}
+
+		public static IEnumerable<object> GetBishopStartPositionsAndExpectedTypes()
+		{
+			Cell[] rookCells = { new Cell(0, 2), new Cell(0, 5), new Cell(7, 2), new Cell(7, 5) };
+
+			foreach (var rookCell in rookCells)
+				yield return new object[] { rookCell.Row, rookCell.Column, typeof(Bishop), ChessmenType.Bishop };
+		}
+
+		public static IEnumerable<object> GetQueenStartPositionsAndExpectedTypes()
+		{
+			Cell[] rookCells = { new Cell(0, 3), new Cell(7, 3)};
+
+			foreach (var rookCell in rookCells)
+				yield return new object[] { rookCell.Row, rookCell.Column, typeof(Queen), ChessmenType.Queen };
+		}
+
+		public static IEnumerable<object> GetKingStartPositionsAndExpectedTypes()
+		{
+			Cell[] rookCells = { new Cell(0, 4), new Cell(7, 4) };
+
+			foreach (var rookCell in rookCells)
+				yield return new object[] { rookCell.Row, rookCell.Column, typeof(King), ChessmenType.King };
 		}
 	}
 }

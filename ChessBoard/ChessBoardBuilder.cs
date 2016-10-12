@@ -20,7 +20,7 @@ namespace ChessBoard
 						continue;
 					}
 
-					var chessman = ChessmanFactory.TryToCreateChessman(row, column);
+					var chessman = ChessmanFactory.TryToCreateChessmanOnStartPosition(row, column);
 
 					SetColor(chessman, row);
 
