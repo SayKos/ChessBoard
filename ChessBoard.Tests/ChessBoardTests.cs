@@ -35,7 +35,7 @@ namespace ChessBoard.Tests
 			return new object[]
 			{
 				new object[] { TestData.CreateNewChessBoard(), TestData.GetStartPositionChessBoard() },
-				new object[] { TestData.GetChessBoardScenarioOneStatusWhiteTurn(), TestData.GetChessBoardScenarioOneStatusWhiteTurn() }
+				new object[] { TestData.GetChessBoardScenario_1_WhiteTurn(), TestData.GetChessBoardScenario_1_WhiteTurn() }
 			};
 		}
 
@@ -66,8 +66,8 @@ namespace ChessBoard.Tests
 			return new object[]
 			{
 				new object[] { TestData.CreateNewChessBoard(), new Cell(6, 4), new Cell(4, 4) },
-				new object[] { TestData.CreateNewChessBoard(), new Cell(0, 1), new Cell(2, 2) },
-				new object[] { TestData.GetChessBoardScenarioOneStatusWhiteTurn(), new Cell(2, 3), new Cell(1, 4) }
+				new object[] { TestData.CreateNewChessBoard(), new Cell(7, 1), new Cell(5, 2) },
+				new object[] { TestData.GetChessBoardScenario_1_WhiteTurn(), new Cell(2, 3), new Cell(1, 4) }
 			};
 		}
 
@@ -90,12 +90,8 @@ namespace ChessBoard.Tests
 		}
 
 		[Test, TestCaseSource(nameof(GetTestPawnMovementsOnLastRow))]
-		public void TestMoveChessmanWhenWhitePawnShouldBeConverted(Cell oldPosition, Cell newPosition, GameStatus status)
+		public void TestMoveChessmanWhenWhitePawnShouldBeConverted(ChessBoard chessBoard, Cell oldPosition, Cell newPosition)
 		{
-			var chessBoard = status == GameStatus.WhiteTurn 
-				? TestData.GetChessBoardScenarioTwoStatusWhiteTurn()
-				: TestData.GetChessBoardScenarioThreeStatusBlackTurn();
-
 			var newType = ChessmenType.Queen;
 
 			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
@@ -112,15 +108,15 @@ namespace ChessBoard.Tests
 		{
 			return new object[]
 			{
-				new object[] { new Cell(1, 7), new Cell(0, 7), GameStatus.WhiteTurn },
-				new object[] { new Cell(6, 0), new Cell(7, 0), GameStatus.BlackTurn }
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7) },
+				new object[] { TestData.GetChessBoardScenario_3_BlackTurn(), new Cell(6, 0), new Cell(7, 0) }
 			};
 		}
 
 		[Test]
 		public void TestMoveChessmanFailWhenPawnOnLastRowButWithoutNewType()
 		{
-			var chessBoard = TestData.GetChessBoardScenarioTwoStatusWhiteTurn();
+			var chessBoard = TestData.GetChessBoardScenario_2_WhiteTurn();
 
 			Cell oldPosition = new Cell(1, 7);
 			Cell newPosition = new Cell(0, 7);
@@ -130,7 +126,28 @@ namespace ChessBoard.Tests
 			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(pawn, oldPosition, newPosition));
 		}
 
-		// todo: check switching turn after moving
-		// todo: fail if it's wrong turn while moving
+		[Test, TestCaseSource(nameof(GetTestFailMovementsWithWrongColors))]
+		public void TestMoveChessmanFailWhenInconsistentGameStatusAndChessmanColor(ChessBoard chessBoard, Cell oldPosition, Cell newPosition)
+		{
+			var chessman = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+			
+			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(chessman, oldPosition, newPosition));
+		}
+
+		static object[] GetTestFailMovementsWithWrongColors()
+		{
+			return new object[]
+			{
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(0, 4), new Cell(1, 4) },
+				new object[] { TestData.GetChessBoardScenario_3_BlackTurn(), new Cell(7, 4), new Cell(6, 4) },
+				new object[] { TestData.GetChessBoardScenario_4_ShahForWhite(), new Cell(7, 7), new Cell(6, 7) },
+				new object[] { TestData.GetChessBoardScenario_5_ShahForBlack(), new Cell(7, 7), new Cell(6, 7) },
+				new object[] { TestData.GetChessBoardScenario_6_CheckmateForWhite(), new Cell(2, 1), new Cell(3, 1) },
+				new object[] { TestData.GetChessBoardScenario_7_CheckmateForBlack(), new Cell(2, 1), new Cell(3, 1) },
+				new object[] { TestData.GetChessBoardScenario_8_Stalemate(), new Cell(2, 1), new Cell(3, 1) }
+			};
+		}
+
+		// todo: check switching turn after moving (check all statuses)
 	}
 }
