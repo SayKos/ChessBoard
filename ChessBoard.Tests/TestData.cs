@@ -5,7 +5,7 @@ using ChessBoard.Chessmens;
 
 namespace ChessBoard.Tests
 {
-	static class TestData
+	class TestData
 	{
 		public static ChessBoard CreateNewChessBoard()
 		{
@@ -437,7 +437,7 @@ namespace ChessBoard.Tests
 				boardCells[row, column] = new BoardCell(row, column, new Pawn(color));
 		}
 
-		static void SetEmptyCells(BoardCell[,] boardCells, int startRowIndex, int endRowIndex)
+		public static void SetEmptyCells(BoardCell[,] boardCells, int startRowIndex, int endRowIndex)
 		{
 			for (int row = startRowIndex; row <= endRowIndex; row++)
 				for (int column = 0; column <= 7; column++)

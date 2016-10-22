@@ -52,6 +52,11 @@ namespace ChessBoard
 			// todo: switch turn if correct status
 		}
 
+		public Cell[] GetAcceptableCells(BaseChessman chessman)
+		{
+			return chessman.GetAcceptableCells();
+		}
+
 		void FailIfArgumnetsAreNull(BaseChessman chessman, Cell oldPosition, Cell newPosition)
 		{
 			if(chessman == null || oldPosition == null || newPosition == null)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ChessBoard.Chessmens;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace ChessBoard.Tests
 {
@@ -130,7 +131,7 @@ namespace ChessBoard.Tests
 		public void TestMoveChessmanFailWhenInconsistentGameStatusAndChessmanColor(ChessBoard chessBoard, Cell oldPosition, Cell newPosition)
 		{
 			var chessman = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
-			
+
 			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(chessman, oldPosition, newPosition));
 		}
 
@@ -148,6 +149,20 @@ namespace ChessBoard.Tests
 				new object[] { TestData.GetChessBoardScenario_9_StalemateForWhite(), new Cell(2, 1), new Cell(3, 1) }
 			};
 		}
+
+		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCellsForPawn))]
+		public void TestGetAcceptableCellsForPawn(ChessBoard chessBoard, Cell cellOfPawnToTest, Cell[] expectedCells)
+		{
+
+		}
+
+		static object[] GetTestCasesForAcceptableCellsForPawn()
+		{
+			return PawnTestData.GetTestCasesForAcceptableCellsForPawn();
+		}
+
+
+
 
 		// todo: check switching turn after moving (check all statuses)
 	}

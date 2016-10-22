@@ -1,4 +1,6 @@
-﻿namespace ChessBoard.Chessmens
+﻿using System;
+
+namespace ChessBoard.Chessmens
 {
 	public class King : BaseChessman
 	{
@@ -21,6 +23,11 @@
 		public override int GetHashCode()
 		{
 			return base.GetHashCode() ^ Type.GetHashCode();
+		}
+
+		public override Cell[] GetAcceptableCells()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

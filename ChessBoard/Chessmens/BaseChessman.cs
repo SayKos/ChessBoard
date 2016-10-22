@@ -29,5 +29,10 @@ namespace ChessBoard.Chessmens
 		{
 			return (int)Color;
 		}
+
+		public virtual Cell[] GetAcceptableCells()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
