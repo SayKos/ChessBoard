@@ -144,7 +144,8 @@ namespace ChessBoard.Tests
 				new object[] { TestData.GetChessBoardScenario_5_ShahForBlack(), new Cell(7, 7), new Cell(6, 7) },
 				new object[] { TestData.GetChessBoardScenario_6_CheckmateForWhite(), new Cell(2, 1), new Cell(3, 1) },
 				new object[] { TestData.GetChessBoardScenario_7_CheckmateForBlack(), new Cell(2, 1), new Cell(3, 1) },
-				new object[] { TestData.GetChessBoardScenario_8_Stalemate(), new Cell(2, 1), new Cell(3, 1) }
+				new object[] { TestData.GetChessBoardScenario_8_StalemateForBlack(), new Cell(2, 1), new Cell(3, 1) },
+				new object[] { TestData.GetChessBoardScenario_9_StalemateForWhite(), new Cell(2, 1), new Cell(3, 1) }
 			};
 		}
 

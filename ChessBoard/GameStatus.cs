@@ -8,6 +8,7 @@
 		ShahForBlack,
 		CheckmateForWhite,
 		CheckmateForBlack,
-		Stalemate
+		StalemateForWhite,
+		StalemateForBlack
 	}
 }

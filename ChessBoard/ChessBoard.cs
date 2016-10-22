@@ -72,7 +72,8 @@ namespace ChessBoard
 		{
 			return Status == GameStatus.CheckmateForWhite 
 				|| Status == GameStatus.CheckmateForBlack 
-				|| Status == GameStatus.Stalemate;
+				|| Status == GameStatus.StalemateForWhite
+				|| Status == GameStatus.StalemateForBlack;
 		}
 
 		bool IsMovementAvailableForColor(Color color)

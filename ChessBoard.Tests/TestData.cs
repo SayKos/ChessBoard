@@ -323,7 +323,7 @@ namespace ChessBoard.Tests
 		//
 		//			   0   1   2   3   4   5   6   7   
 
-		public static ChessBoard GetChessBoardScenario_8_Stalemate()
+		public static ChessBoard GetChessBoardScenario_8_StalemateForBlack()
 		{
 			BoardCell[,] boardCells = new BoardCell[8, 8];
 
@@ -334,7 +334,44 @@ namespace ChessBoard.Tests
 			boardCells[2, 1].Chessman = new King(Color.White);
 
 			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.Stalemate;
+			chessBoard.Status = GameStatus.StalemateForBlack;
+
+			return chessBoard;
+		}
+
+		//			  _________________________________
+		//		0	  |WKI|   |   |   |   |   |   |   |
+		//		 	  _________________________________
+		//		1	  |   |   |BQ |   |   |   |   |   |
+		//			  _________________________________
+		//		2	  |   |BKI|   |   |   |   |   |   |
+		//			  _________________________________
+		//		3	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		4	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		5	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		6	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		7	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//
+		//
+		//			   0   1   2   3   4   5   6   7   
+
+		public static ChessBoard GetChessBoardScenario_9_StalemateForWhite()
+		{
+			BoardCell[,] boardCells = new BoardCell[8, 8];
+
+			SetEmptyCells(boardCells, 0, 7);
+
+			boardCells[0, 0].Chessman = new King(Color.White);
+			boardCells[1, 2].Chessman = new Queen(Color.Black);
+			boardCells[2, 1].Chessman = new King(Color.Black);
+
+			ChessBoard chessBoard = new ChessBoard(boardCells);
+			chessBoard.Status = GameStatus.StalemateForBlack;
 
 			return chessBoard;
 		}
