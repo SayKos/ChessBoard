@@ -31,22 +31,6 @@ namespace ChessBoard.Tests
 			};
 		}
 
-		static ChessBoard GetEmptyChessBoard(BoardCell[] boardCellsToSet, GameStatus status)
-		{
-			var boardCells = new BoardCell[8, 8];
-			SetEmptyCells(boardCells, 0, 7);
-
-			foreach (var boardCell in boardCellsToSet)
-				boardCells[boardCell.Row, boardCell.Column] = boardCell;
-
-			ChessBoard chessBoard = new ChessBoard(boardCells)
-			{
-				Status = status
-			};
-
-			return chessBoard;
-		}
-
 		//			  _________________________________
 		//		0	  |   |   |   |   |BKI|   |   |   |
 		//		 	  _________________________________
@@ -78,7 +62,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_1()
@@ -120,7 +104,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_2()
@@ -162,7 +146,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_3()
@@ -203,7 +187,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_4()
@@ -246,7 +230,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_5()
@@ -289,7 +273,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_6()
@@ -333,7 +317,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_7()
@@ -377,7 +361,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_8()
@@ -420,7 +404,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_9()
@@ -464,7 +448,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_10()
@@ -508,7 +492,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_11()
@@ -582,7 +566,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_13()
@@ -625,7 +609,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_14()
@@ -667,7 +651,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_17()
@@ -706,7 +690,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_18()
@@ -748,7 +732,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_19()
@@ -787,7 +771,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_20()
@@ -829,7 +813,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		static Cell[] GetCellsForScenario_21()
@@ -871,7 +855,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return GetEmptyChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		static Cell[] GetCellsForScenario_22()

@@ -38,46 +38,35 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_1_WhiteTurn()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 1, new Rook(Color.Black)),
+				new BoardCell(0, 4, new King(Color.Black)),
+				new BoardCell(0, 5, new Bishop(Color.Black)),
+				new BoardCell(0, 7, new Rook(Color.Black)),
+				new BoardCell(1, 0, new Pawn(Color.Black)),
+				new BoardCell(1, 3, new Queen(Color.Black)),
+				new BoardCell(1, 4, new Pawn(Color.Black)),
+				new BoardCell(1, 5, new Pawn(Color.Black)),
+				new BoardCell(1, 6, new Pawn(Color.Black)),
+				new BoardCell(2, 3, new Pawn(Color.White)),
+				new BoardCell(3, 0, new Rook(Color.White)),
+				new BoardCell(4, 1, new Pawn(Color.White)),
+				new BoardCell(4, 3, new Pawn(Color.White)),
+				new BoardCell(4, 5, new Knight(Color.Black)),
+				new BoardCell(4, 7, new Pawn(Color.Black)),
+				new BoardCell(5, 6, new Knight(Color.White)),
+				new BoardCell(6, 1, new Pawn(Color.White)),
+				new BoardCell(6, 2, new Pawn(Color.White)),
+				new BoardCell(6, 5, new Pawn(Color.White)),
+				new BoardCell(6, 6, new Pawn(Color.White)),
+				new BoardCell(6, 7, new Pawn(Color.White)),
+				new BoardCell(7, 1, new Bishop(Color.White)),
+				new BoardCell(7, 5, new Queen(Color.White)),
+				new BoardCell(7, 6, new King(Color.White))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 1].Chessman = new Rook(Color.Black);
-			boardCells[0, 4].Chessman = new King(Color.Black);
-			boardCells[0, 5].Chessman = new Bishop(Color.Black);
-			boardCells[0, 7].Chessman = new Rook(Color.Black);
-
-			boardCells[1, 0].Chessman = new Pawn(Color.Black);
-			boardCells[1, 3].Chessman = new Queen(Color.Black);
-			boardCells[1, 4].Chessman = new Pawn(Color.Black);
-			boardCells[1, 5].Chessman = new Pawn(Color.Black);
-			boardCells[1, 6].Chessman = new Pawn(Color.Black);
-
-			boardCells[2, 3].Chessman = new Pawn(Color.White);
-
-			boardCells[3, 0].Chessman = new Rook(Color.White);
-
-			boardCells[4, 1].Chessman = new Pawn(Color.White);
-			boardCells[4, 3].Chessman = new Pawn(Color.White);
-			boardCells[4, 5].Chessman = new Knight(Color.Black);
-			boardCells[4, 7].Chessman = new Pawn(Color.Black);
-
-			boardCells[5, 6].Chessman = new Knight(Color.White);
-
-			boardCells[6, 1].Chessman = new Pawn(Color.White);
-			boardCells[6, 2].Chessman = new Pawn(Color.White);
-			boardCells[6, 5].Chessman = new Pawn(Color.White);
-			boardCells[6, 6].Chessman = new Pawn(Color.White);
-			boardCells[6, 7].Chessman = new Pawn(Color.White);
-
-			boardCells[7, 1].Chessman = new Bishop(Color.White);
-			boardCells[7, 5].Chessman = new Queen(Color.White);
-			boardCells[7, 6].Chessman = new King(Color.White);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.WhiteTurn;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		//			  _________________________________
@@ -103,18 +92,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_2_WhiteTurn()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 4, new King(Color.Black)),
+				new BoardCell(7, 4, new King(Color.White)),
+				new BoardCell(1, 7, new Pawn(Color.White))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 4].Chessman = new King(Color.Black);
-			boardCells[7, 4].Chessman = new King(Color.White);
-			boardCells[1, 7].Chessman = new Pawn(Color.White);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.WhiteTurn;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
 		//			  _________________________________
@@ -140,18 +125,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_3_BlackTurn()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 4, new King(Color.Black)),
+				new BoardCell(7, 4, new King(Color.White)),
+				new BoardCell(6, 0, new Pawn(Color.Black))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 4].Chessman = new King(Color.Black);
-			boardCells[7, 4].Chessman = new King(Color.White);
-			boardCells[6, 0].Chessman = new Pawn(Color.Black);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.BlackTurn;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
 		//			  _________________________________
@@ -177,18 +158,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_4_ShahForWhite()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 0, new King(Color.White)),
+				new BoardCell(2, 2, new Queen(Color.Black)),
+				new BoardCell(7, 7, new King(Color.Black))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 0].Chessman = new King(Color.White);
-			boardCells[2, 2].Chessman = new Queen(Color.Black);
-			boardCells[7, 7].Chessman = new King(Color.Black);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.ShahForWhite;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.ShahForWhite);
 		}
 
 		//			  _________________________________
@@ -214,18 +191,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_5_ShahForBlack()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 0, new King(Color.Black)),
+				new BoardCell(2, 2, new Queen(Color.White)),
+				new BoardCell(7, 7, new King(Color.White))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 0].Chessman = new King(Color.Black);
-			boardCells[2, 2].Chessman = new Queen(Color.White);
-			boardCells[7, 7].Chessman = new King(Color.White);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.ShahForBlack;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.ShahForBlack);
 		}
 
 		//			  _________________________________
@@ -251,18 +224,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_6_CheckmateForWhite()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 0, new King(Color.White)),
+				new BoardCell(1, 1, new Queen(Color.Black)),
+				new BoardCell(2, 1, new King(Color.Black))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 0].Chessman = new King(Color.White);
-			boardCells[1, 1].Chessman = new Queen(Color.Black);
-			boardCells[2, 1].Chessman = new King(Color.Black);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.CheckmateForWhite;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.CheckmateForWhite);
 		}
 
 		//			  _________________________________
@@ -288,18 +257,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_7_CheckmateForBlack()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 0, new King(Color.Black)),
+				new BoardCell(1, 1, new Queen(Color.White)),
+				new BoardCell(2, 1, new King(Color.White))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 0].Chessman = new King(Color.Black);
-			boardCells[1, 1].Chessman = new Queen(Color.White);
-			boardCells[2, 1].Chessman = new King(Color.White);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.CheckmateForBlack;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.CheckmateForBlack);
 		}
 
 		//			  _________________________________
@@ -325,18 +290,14 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_8_StalemateForBlack()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 0, new King(Color.Black)),
+				new BoardCell(1, 2, new Queen(Color.White)),
+				new BoardCell(2, 1, new King(Color.White))
+			};
 
-			SetEmptyCells(boardCells, 0, 7);
-
-			boardCells[0, 0].Chessman = new King(Color.Black);
-			boardCells[1, 2].Chessman = new Queen(Color.White);
-			boardCells[2, 1].Chessman = new King(Color.White);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.StalemateForBlack;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.StalemateForBlack);
 		}
 
 		//			  _________________________________
@@ -362,18 +323,15 @@ namespace ChessBoard.Tests
 
 		public static ChessBoard GetChessBoardScenario_9_StalemateForWhite()
 		{
-			BoardCell[,] boardCells = new BoardCell[8, 8];
+			var boardCells = new[]
+			{
+				new BoardCell(0, 0, new King(Color.White)),
 
-			SetEmptyCells(boardCells, 0, 7);
+				new BoardCell(1, 2, new Queen(Color.Black)),
+				new BoardCell(2, 1, new King(Color.Black))
+			};
 
-			boardCells[0, 0].Chessman = new King(Color.White);
-			boardCells[1, 2].Chessman = new Queen(Color.Black);
-			boardCells[2, 1].Chessman = new King(Color.Black);
-
-			ChessBoard chessBoard = new ChessBoard(boardCells);
-			chessBoard.Status = GameStatus.StalemateForBlack;
-
-			return chessBoard;
+			return SetupChessBoard(boardCells, GameStatus.StalemateForWhite);
 		}
 
 		//			  _________________________________
@@ -411,6 +369,22 @@ namespace ChessBoard.Tests
 
 			ChessBoard chessBoard = new ChessBoard(boardCells);
 			chessBoard.Status = GameStatus.WhiteTurn;
+
+			return chessBoard;
+		}
+
+		protected static ChessBoard SetupChessBoard(BoardCell[] boardCellsToSet, GameStatus status)
+		{
+			var boardCells = new BoardCell[8, 8];
+			SetEmptyCells(boardCells, 0, 7);
+
+			foreach (var boardCell in boardCellsToSet)
+				boardCells[boardCell.Row, boardCell.Column] = boardCell;
+
+			ChessBoard chessBoard = new ChessBoard(boardCells)
+			{
+				Status = status
+			};
 
 			return chessBoard;
 		}
@@ -496,7 +470,7 @@ namespace ChessBoard.Tests
 
 		public static IEnumerable<object> GetQueenStartPositionsAndExpectedTypes()
 		{
-			Cell[] rookCells = { new Cell(0, 3), new Cell(7, 3)};
+			Cell[] rookCells = { new Cell(0, 3), new Cell(7, 3) };
 
 			foreach (var rookCell in rookCells)
 				yield return new object[] { rookCell.Row, rookCell.Column, typeof(Queen), ChessmenType.Queen };
