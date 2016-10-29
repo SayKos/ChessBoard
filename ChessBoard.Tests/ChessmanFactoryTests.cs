@@ -32,29 +32,6 @@ namespace ChessBoard.Tests
 			};
 		}
 
-		[Test]
-		public void TryToConvertChessmanTest()
-		{
-			var queenType = ChessmenType.Queen;
-			var color = Color.Black;
-
-			Pawn pawn = new Pawn(color);
-
-			var convertedChessman = ChessmanFactory.TryToConvertChessman(pawn, queenType);
-
-			Assert.AreEqual(typeof(Queen), convertedChessman.GetType(), "convertedChessman should have new type");
-			Assert.AreEqual(convertedChessman.Color, color, "Colors types should be aqual");
-		}
-
-		[Test]
-		public void TryToConvertChessmanTestFail()
-		{
-			Pawn pawn = new Pawn();
-			ChessmenType? chessmanType = null;
-
-			Assert.Throws(typeof(ArgumentException), () => ChessmanFactory.TryToConvertChessman(pawn, chessmanType));
-		}
-
 		[Test, TestCaseSource(nameof(GetStartPositionsAndExpectedTypes))]
 		public void TryToCreateChessmanOnStartPosition(int row, int collumn, Type expectedType, ChessmenType expectedChessmenType)
 		{

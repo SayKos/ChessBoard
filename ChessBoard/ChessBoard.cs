@@ -43,13 +43,29 @@ namespace ChessBoard
 
 			// todo: check if cell is acceptable for the chessman - throw exception if not (and add test for this)
 
-			if (chessman.Type == ChessmenType.Pawn && ((Pawn)chessman).IsLastRow(newPosition.Row))
-				chessman = ChessmanFactory.TryToConvertChessman(chessman, newType);
+			chessman = ChangeTypeInCasePawnAndPossible(chessman, newPosition, newType);
 
 			BoardCells[oldPosition.Row, oldPosition.Column].Chessman = null;
 			BoardCells[newPosition.Row, newPosition.Column].Chessman = chessman;
 
 			// todo: switch turn if correct status
+		}
+
+		private static BaseChessman ChangeTypeInCasePawnAndPossible(
+			BaseChessman chessman, 
+			Cell newPosition, 
+			ChessmenType? newType)
+		{
+			if (chessman.Type != ChessmenType.Pawn || !((Pawn) chessman).IsLastRow(newPosition.Row))
+				return chessman;
+
+			if (!newType.HasValue)
+				throw new ArgumentException("New type should be set");
+
+			if (newType == ChessmenType.Pawn || newType == ChessmenType.King)
+				throw new ArgumentException("New type can not be Pawn or King");
+
+			return ChessmanFactory.TryToCreateChessman(chessman.Color, newType.Value);
 		}
 
 		public Cell[] GetAcceptableCells(BaseChessman chessman)

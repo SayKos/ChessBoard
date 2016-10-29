@@ -91,10 +91,12 @@ namespace ChessBoard.Tests
 		}
 
 		[Test, TestCaseSource(nameof(GetTestPawnMovementsOnLastRow))]
-		public void TestMoveChessmanWhenWhitePawnShouldBeConverted(ChessBoard chessBoard, Cell oldPosition, Cell newPosition)
+		public void TestMoveChessmanWhenWhitePawnShouldBeConverted(
+			ChessBoard chessBoard, 
+			Cell oldPosition, 
+			Cell newPosition,
+			ChessmenType newType)
 		{
-			var newType = ChessmenType.Queen;
-
 			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
 			chessBoard.MoveChessman(pawn, oldPosition, newPosition, newType);
@@ -109,8 +111,34 @@ namespace ChessBoard.Tests
 		{
 			return new object[]
 			{
-				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7) },
-				new object[] { TestData.GetChessBoardScenario_3_BlackTurn(), new Cell(6, 0), new Cell(7, 0) }
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Queen },
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Bishop },
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Rook },
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Knight },
+				new object[] { TestData.GetChessBoardScenario_3_BlackTurn(), new Cell(6, 0), new Cell(7, 0), ChessmenType.Queen }
+			};
+		}
+
+		[Test, TestCaseSource(nameof(GetWrongNewTypesForPawn))]
+		public void TestMoveChessmanFailWhenPawnConvertedToWrongType(ChessmenType chessmanType)
+		{
+			var chessBoard = TestData.GetChessBoardScenario_2_WhiteTurn();
+
+			Cell oldPosition = new Cell(1, 7);
+			Cell newPosition = new Cell(0, 7);
+
+			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+
+			Assert.Throws(typeof(ArgumentException), () => 
+				chessBoard.MoveChessman(pawn, oldPosition, newPosition, chessmanType));
+		}
+
+		static object[] GetWrongNewTypesForPawn()
+		{
+			return new object[]
+			{
+				new object[] { ChessmenType.Pawn },
+				new object[] { ChessmenType.King }
 			};
 		}
 
@@ -121,10 +149,11 @@ namespace ChessBoard.Tests
 
 			Cell oldPosition = new Cell(1, 7);
 			Cell newPosition = new Cell(0, 7);
+			ChessmenType? chessmanType = null;
 
 			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
-			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(pawn, oldPosition, newPosition));
+			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(pawn, oldPosition, newPosition, chessmanType));
 		}
 
 		[Test, TestCaseSource(nameof(GetTestFailMovementsWithWrongColors))]

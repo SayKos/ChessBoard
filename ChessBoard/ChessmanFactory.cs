@@ -5,14 +5,6 @@ namespace ChessBoard
 {
 	public static class ChessmanFactory
 	{
-		public static BaseChessman TryToConvertChessman(BaseChessman chessman, ChessmenType? newType)
-		{
-			if (!newType.HasValue)
-				throw new ArgumentException("New type should be set");
-
-			return TryToCreateChessman(chessman.Color, newType.Value);
-		}
-
 		public static BaseChessman TryToCreateChessman(Color color, ChessmenType type)
 		{
 			switch (type)
