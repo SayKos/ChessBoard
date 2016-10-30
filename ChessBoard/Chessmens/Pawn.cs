@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace ChessBoard.Chessmens
 {
@@ -23,11 +23,6 @@ namespace ChessBoard.Chessmens
 			return false;
 		}
 
-		public void SetNewType(ChessmenType newType)
-		{
-			Type = newType;
-		}
-
 		public override bool Equals(object obj)
 		{
 			if (!(obj is Pawn))
@@ -41,9 +36,46 @@ namespace ChessBoard.Chessmens
 			return base.GetHashCode() ^ Type.GetHashCode();
 		}
 
-		public override Cell[] GetAcceptableCells()
+		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
 		{
-			throw new NotImplementedException();
+			List<Cell> acceptableCells = new List<Cell>();
+
+			acceptableCells.AddRange(GetFrontCells(boardCells, currentCell));
+
+			return acceptableCells;
+		}
+
+		private List<Cell> GetFrontCells(BoardCell[,] boardCells, Cell currentCell)
+		{
+			List<Cell> acceptableCells = new List<Cell>();
+
+			acceptableCells.Add(GetNextFrontCellIfPossible(boardCells, currentCell, 1));
+
+			if (NeedToCheckNextFrontCell(currentCell.Row, acceptableCells.Count))
+				acceptableCells.Add(GetNextFrontCellIfPossible(boardCells, currentCell, 2));
+
+			return acceptableCells;
+		}
+
+		private bool NeedToCheckNextFrontCell(int currentRow, int addedCellsCount)
+		{
+			int startRowPosition = Color == Color.White ? 6 : 1;
+			return currentRow == startRowPosition && addedCellsCount > 0;
+		}
+
+		private Cell GetNextFrontCellIfPossible(BoardCell[,] boardCells, Cell currentCell, int nextRowCount)
+		{
+			var currentRow = currentCell.Row;
+			var currentColumn = currentCell.Column;
+			var nextRow = Color == Color.White ? currentRow - nextRowCount : currentRow + nextRowCount;
+			var cell = new Cell(nextRow, currentColumn);
+
+			return IsCellEmptyAndInBounds(boardCells, cell) ? cell : null;
+		}
+
+		private bool IsCellEmptyAndInBounds(BoardCell[,] boardCells, Cell cell)
+		{
+			return IsCellInBounds(cell) && boardCells[cell.Row, cell.Column].IsEmpty();
 		}
 	}
 }

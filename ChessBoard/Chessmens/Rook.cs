@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ChessBoard.Chessmens
 {
@@ -25,7 +26,7 @@ namespace ChessBoard.Chessmens
 			return base.GetHashCode() ^ Type.GetHashCode();
 		}
 
-		public override Cell[] GetAcceptableCells()
+		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
 		{
 			throw new NotImplementedException();
 		}

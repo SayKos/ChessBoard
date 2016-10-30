@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ChessBoard.Chessmens;
 using Newtonsoft.Json;
 
@@ -51,7 +52,7 @@ namespace ChessBoard
 			// todo: switch turn if correct status
 		}
 
-		private static BaseChessman ChangeTypeInCasePawnAndPossible(
+		static BaseChessman ChangeTypeInCasePawnAndPossible(
 			BaseChessman chessman, 
 			Cell newPosition, 
 			ChessmenType? newType)
@@ -68,12 +69,14 @@ namespace ChessBoard
 			return ChessmanFactory.TryToCreateChessman(chessman.Color, newType.Value);
 		}
 
-		public Cell[] GetAcceptableCells(BaseChessman chessman)
+		public List<Cell> GetAcceptableCells(Cell cell)
 		{
-			return chessman.GetAcceptableCells();
+			var chessman = BoardCells[cell.Row, cell.Column].Chessman;
+
+			return chessman.GetAcceptableCells(BoardCells, cell);
 		}
 
-		void FailIfArgumnetsAreNull(BaseChessman chessman, Cell oldPosition, Cell newPosition)
+		static void FailIfArgumnetsAreNull(BaseChessman chessman, Cell oldPosition, Cell newPosition)
 		{
 			if(chessman == null || oldPosition == null || newPosition == null)
 				throw new ArgumentException("chessman, oldPosition and newPosition should not by null.");

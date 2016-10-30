@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ChessBoard.Chessmens
 {
@@ -30,9 +31,17 @@ namespace ChessBoard.Chessmens
 			return (int)Color;
 		}
 
-		public virtual Cell[] GetAcceptableCells()
+		public virtual List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
 		{
 			throw new NotImplementedException();
+		}
+
+		protected bool IsCellInBounds(Cell cell)
+		{
+			return cell.Row >= 0 
+				&& cell.Row <= 7 
+				&& cell.Column >= 0 
+				&& cell.Column <= 7;
 		}
 	}
 }

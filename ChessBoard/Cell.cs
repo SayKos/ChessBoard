@@ -12,5 +12,25 @@
 			Row = row;
 			Column = column;
 		}
+
+		public override bool Equals(object obj)
+		{
+			var cell = obj as Cell;
+
+			if (cell == null)
+				return false;
+
+			return Row == cell.Row && Column == cell.Column;
+		}
+
+		public override int GetHashCode()
+		{
+			return Row.GetHashCode() ^ Column.GetHashCode();
+		}
+
+		public override string ToString()
+		{
+			return $"Row: {Row}, Column: {Column}";
+		}
 	}
 }

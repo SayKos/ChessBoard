@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ChessBoard.Chessmens;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -95,27 +96,33 @@ namespace ChessBoard.Tests
 			ChessBoard chessBoard, 
 			Cell oldPosition, 
 			Cell newPosition,
-			ChessmenType newType)
+			ChessmenType newChessmanType,
+			Type type)
 		{
 			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
-			chessBoard.MoveChessman(pawn, oldPosition, newPosition, newType);
+			chessBoard.MoveChessman(pawn, oldPosition, newPosition, newChessmanType);
 
 			var newChessman = chessBoard.BoardCells[newPosition.Row, newPosition.Column].Chessman;
 
-			Assert.AreEqual(typeof(Queen), newChessman.GetType(), "Types should be aqual");
-			Assert.AreEqual(newType, newChessman.Type, "Chessman types should be aqual");
+			Assert.AreEqual(type, newChessman.GetType(), "Types should be aqual");
+			Assert.AreEqual(newChessmanType, newChessman.Type, "Chessman types should be aqual");
 		}
 
 		static object[] GetTestPawnMovementsOnLastRow()
 		{
 			return new object[]
 			{
-				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Queen },
-				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Bishop },
-				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Rook },
-				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7), ChessmenType.Knight },
-				new object[] { TestData.GetChessBoardScenario_3_BlackTurn(), new Cell(6, 0), new Cell(7, 0), ChessmenType.Queen }
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7),
+					ChessmenType.Queen, typeof(Queen) },
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7),
+					ChessmenType.Bishop, typeof(Bishop) },
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7),
+					ChessmenType.Rook, typeof(Rook) },
+				new object[] { TestData.GetChessBoardScenario_2_WhiteTurn(), new Cell(1, 7), new Cell(0, 7),
+					ChessmenType.Knight, typeof(Knight) },
+				new object[] { TestData.GetChessBoardScenario_3_BlackTurn(), new Cell(6, 0), new Cell(7, 0),
+					ChessmenType.Queen, typeof(Queen) }
 			};
 		}
 
@@ -180,9 +187,14 @@ namespace ChessBoard.Tests
 		}
 
 		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCellsForPawn))]
-		public void TestGetAcceptableCellsForPawn(ChessBoard chessBoard, Cell cellOfPawnToTest, Cell[] expectedCells)
+		public void TestGetAcceptableCellsForPawn(
+			ChessBoard chessBoard, 
+			Cell cellOfPawnToTest, 
+			List<Cell> expectedCells, 
+			string caseName)
 		{
-
+			var actualCells = chessBoard.GetAcceptableCells(cellOfPawnToTest);
+			Assert.IsTrue(AreActualCellsEqualToExpected(actualCells, expectedCells));
 		}
 
 		static object[] GetTestCasesForAcceptableCellsForPawn()
@@ -190,8 +202,11 @@ namespace ChessBoard.Tests
 			return PawnTestData.GetTestCasesForAcceptableCellsForPawn();
 		}
 
-
-
+		static bool AreActualCellsEqualToExpected(List<Cell> actualCells, List<Cell> expectedCells)
+		{
+			return actualCells.Count == expectedCells.Count 
+				&& new HashSet<Cell>(actualCells).SetEquals(expectedCells);
+		}
 
 		// todo: check switching turn after moving (check all statuses)
 	}
