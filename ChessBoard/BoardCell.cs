@@ -38,7 +38,10 @@ namespace ChessBoard
 
 		public override int GetHashCode()
 		{
-			return base.GetHashCode() ^ Chessman?.GetHashCode() ?? 0 ^ Row ^ Column;
+			int hash = 17;
+			hash = hash * 23 + base.GetHashCode();
+			hash = hash * 23 + Chessman?.GetHashCode() ?? 1;
+			return hash;
 		}
 	}
 }

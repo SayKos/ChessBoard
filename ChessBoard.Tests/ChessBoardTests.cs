@@ -204,8 +204,10 @@ namespace ChessBoard.Tests
 
 		static bool AreActualCellsEqualToExpected(List<Cell> actualCells, List<Cell> expectedCells)
 		{
-			return actualCells.Count == expectedCells.Count 
-				&& new HashSet<Cell>(actualCells).SetEquals(expectedCells);
+			var firstNotSecond = actualCells.Except(expectedCells).ToList();
+			var secondNotFirst = expectedCells.Except(actualCells).ToList();
+
+			return !firstNotSecond.Any() && !secondNotFirst.Any();
 		}
 
 		// todo: check switching turn after moving (check all statuses)

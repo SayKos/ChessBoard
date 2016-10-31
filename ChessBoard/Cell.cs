@@ -25,7 +25,10 @@
 
 		public override int GetHashCode()
 		{
-			return Row.GetHashCode() ^ Column.GetHashCode();
+			int hash = 17;
+			hash = hash * 23 + Row.GetHashCode();
+			hash = hash * 23 + Column.GetHashCode();
+			return hash;
 		}
 
 		public override string ToString()

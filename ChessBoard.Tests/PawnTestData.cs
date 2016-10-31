@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ChessBoard.Chessmens;
+using NUnit.Framework;
 
 namespace ChessBoard.Tests
 {
@@ -9,20 +11,22 @@ namespace ChessBoard.Tests
 		{
 			return new object[]
 			{
-				new object[] { GetScenario_1(), new Cell(6, 3), GetCellsForScenario_1().ToList(), nameof(GetScenario_1) },
-				new object[] { GetScenario_2(), new Cell(1, 3), GetCellsForScenario_2().ToList(), nameof(GetScenario_2) },
-				new object[] { GetScenario_3(), new Cell(5, 3), GetCellsForScenario_3().ToList(), nameof(GetScenario_3) },
-				new object[] { GetScenario_4(), new Cell(2, 3), GetCellsForScenario_4().ToList(), nameof(GetScenario_4) },
-				//new object[] { GetScenario_5(), new Cell(5, 3), GetCellsForScenario_5(), nameof(GetScenario_5) },
-				//new object[] { GetScenario_6(), new Cell(5, 3), GetCellsForScenario_6(), nameof(GetScenario_6) },
-				//new object[] { GetScenario_7(), new Cell(5, 3), GetCellsForScenario_7(), nameof(GetScenario_7) },
-				//new object[] { GetScenario_8(), new Cell(2, 3), GetCellsForScenario_8(), nameof(GetScenario_8) },
-				//new object[] { GetScenario_9(), new Cell(2, 3), GetCellsForScenario_9(), nameof(GetScenario_9) },
-				//new object[] { GetScenario_10(), new Cell(2, 3), GetCellsForScenario_10(), nameof(GetScenario_10) },
-				//new object[] { GetScenario_11(), new Cell(5, 3), GetCellsForScenario_11(), nameof(GetScenario_11) },
-				//new object[] { GetScenario_12(), new Cell(4, 3), GetCellsForScenario_12(), nameof(GetScenario_12) },
-				//new object[] { GetScenario_13(), new Cell(5, 3), GetCellsForScenario_13(), nameof(GetScenario_13) },
-				//new object[] { GetScenario_14(), new Cell(4, 3), GetCellsForScenario_14(), nameof(GetScenario_14) },
+				new object[] { GetScenario_1(), new Cell(6, 3), GetCellsForScenario_1(), nameof(GetScenario_1) },
+				new object[] { GetScenario_2(), new Cell(1, 3), GetCellsForScenario_2(), nameof(GetScenario_2) },
+				new object[] { GetScenario_3(), new Cell(5, 3), GetCellsForScenario_3(), nameof(GetScenario_3) },
+				new object[] { GetScenario_4(), new Cell(2, 3), GetCellsForScenario_4(), nameof(GetScenario_4) },
+				new object[] { GetScenario_5(), new Cell(5, 3), GetCellsForScenario_5(), nameof(GetScenario_5) },
+				new object[] { GetScenario_6(), new Cell(5, 3), GetCellsForScenario_6(), nameof(GetScenario_6) },
+				new object[] { GetScenario_7(), new Cell(5, 3), GetCellsForScenario_7(), nameof(GetScenario_7) },
+				new object[] { GetScenario_8(), new Cell(2, 3), GetCellsForScenario_8(), nameof(GetScenario_8) },
+				new object[] { GetScenario_9(), new Cell(2, 3), GetCellsForScenario_9(), nameof(GetScenario_9) },
+				new object[] { GetScenario_10(), new Cell(2, 3), GetCellsForScenario_10(), nameof(GetScenario_10) },
+				new object[] { GetScenario_11(), new Cell(5, 3), GetCellsForScenario_11(), nameof(GetScenario_11) },
+				new object[] { GetScenario_12(), new Cell(4, 3), GetCellsForScenario_12(), nameof(GetScenario_12) },
+				new object[] { GetScenario_13(), new Cell(5, 3), GetCellsForScenario_13(), nameof(GetScenario_13) },
+				new object[] { GetScenario_14(), new Cell(4, 3), GetCellsForScenario_14(), nameof(GetScenario_14) },
+				
+				// todo: uncomment when shah will be done
 				//new object[] { GetScenario_15(), new Cell(5, 2), GetCellsForScenario_15(), nameof(GetScenario_15) },
 				//new object[] { GetScenario_16(), new Cell(5, 2), GetCellsForScenario_16(), nameof(GetScenario_16) },
 				//new object[] { GetScenario_17(), new Cell(2, 2), GetCellsForScenario_17(), nameof(GetScenario_17) },
@@ -66,9 +70,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_1()
+		static List<Cell> GetCellsForScenario_1()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(5, 3),
 				new Cell(4, 3)
@@ -108,9 +112,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_2()
+		static List<Cell> GetCellsForScenario_2()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(2, 3),
 				new Cell(3, 3)
@@ -150,9 +154,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_3()
+		static List<Cell> GetCellsForScenario_3()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(4, 3)
 			};
@@ -191,9 +195,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_4()
+		static List<Cell> GetCellsForScenario_4()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(3, 3)
 			};
@@ -234,9 +238,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_5()
+		static List<Cell> GetCellsForScenario_5()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(4, 3),
 				new Cell(4, 4)
@@ -277,9 +281,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_6()
+		static List<Cell> GetCellsForScenario_6()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(4, 3),
 				new Cell(4, 2)
@@ -321,9 +325,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_7()
+		static List<Cell> GetCellsForScenario_7()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(4, 3),
 				new Cell(4, 2),
@@ -365,9 +369,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_8()
+		static List<Cell> GetCellsForScenario_8()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(3, 3),
 				new Cell(3, 4)
@@ -408,9 +412,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_9()
+		static List<Cell> GetCellsForScenario_9()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(3, 3),
 				new Cell(3, 2)
@@ -452,9 +456,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_10()
+		static List<Cell> GetCellsForScenario_10()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(3, 3),
 				new Cell(3, 2),
@@ -496,9 +500,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_11()
+		static List<Cell> GetCellsForScenario_11()
 		{
-			return new Cell[] { };
+			return new List<Cell>();
 		}
 
 		//			  _________________________________
@@ -530,9 +534,9 @@ namespace ChessBoard.Tests
 			return chessBoard;
 		}
 
-		static Cell[] GetCellsForScenario_12()
+		static List<Cell> GetCellsForScenario_12()
 		{
-			return new Cell[] { };
+			return new List<Cell>();
 		}
 
 		//			  _________________________________
@@ -570,9 +574,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_13()
+		static List<Cell> GetCellsForScenario_13()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(4, 2)
 			};
@@ -613,9 +617,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_14()
+		static List<Cell> GetCellsForScenario_14()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(5, 4)
 			};
@@ -655,9 +659,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_15()
+		static List<Cell> GetCellsForScenario_15()
 		{
-			return new Cell[] { };
+			return new List<Cell>();
 		}
 
 		//			  _________________________________
@@ -694,9 +698,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_16()
+		static List<Cell> GetCellsForScenario_16()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(4, 1)
 			};
@@ -736,9 +740,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_17()
+		static List<Cell> GetCellsForScenario_17()
 		{
-			return new Cell[] { };
+			return new List<Cell>();
 		}
 
 		//			  _________________________________
@@ -775,9 +779,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_18()
+		static List<Cell> GetCellsForScenario_18()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(3, 1)
 			};
@@ -817,9 +821,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
 		}
 
-		static Cell[] GetCellsForScenario_19()
+		static List<Cell> GetCellsForScenario_19()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(5, 2)
 			};
@@ -859,9 +863,9 @@ namespace ChessBoard.Tests
 			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
 		}
 
-		static Cell[] GetCellsForScenario_20()
+		static List<Cell> GetCellsForScenario_20()
 		{
-			return new[]
+			return new List<Cell>
 			{
 				new Cell(2, 2)
 			};
