@@ -28,7 +28,10 @@ namespace ChessBoard.Chessmens
 
 		public override int GetHashCode()
 		{
-			return (int)Color;
+			int hash = 17;
+			hash = hash * 23 + (int)Color;
+			hash = hash * 23 + (int)Type;
+			return hash;
 		}
 
 		public virtual List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
