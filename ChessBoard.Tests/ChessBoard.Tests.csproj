@@ -64,6 +64,7 @@
     <Compile Include="TestDataClasses\KingTestData.cs" />
     <Compile Include="TestDataClasses\PawnTestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDataClasses\QueenTestData.cs" />
     <Compile Include="TestDataClasses\RookTestData.cs" />
     <Compile Include="TestDataClasses\TestData.cs" />
   </ItemGroup>

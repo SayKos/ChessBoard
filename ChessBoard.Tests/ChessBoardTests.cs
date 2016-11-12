@@ -203,6 +203,7 @@ namespace ChessBoard.Tests
 			return PawnTestData.GetAcceptableCellsTestCases()
 				.Concat(RookTestData.GetAcceptableCellsTestCases())
 				.Concat(BishopTestData.GetAcceptableCellsTestCases())
+				.Concat(QueenTestData.GetAcceptableCellsTestCases())
 				.ToArray();
 		}
 

@@ -28,7 +28,23 @@ namespace ChessBoard.Chessmens
 
 		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
 		{
-			throw new NotImplementedException();
+			Direction[] possibleDirections =
+			{
+				new Direction {Row = -1, Column = -1},
+				new Direction {Row = -1, Column = 1},
+				new Direction {Row = 1, Column = -1},
+				new Direction {Row = 1, Column = 1},
+				new Direction {Row = -1, Column = 0},
+				new Direction {Row = 1, Column = 0},
+				new Direction {Row = 0, Column = -1},
+				new Direction {Row = 0, Column = 1}
+			};
+
+			var acceptableCells = GetAcceptableCellsForLongMovements(boardCells, possibleDirections, currentCell);
+
+			// todo: Adjust Acceptable Cells In Case Shah
+
+			return acceptableCells;
 		}
 	}
 }
