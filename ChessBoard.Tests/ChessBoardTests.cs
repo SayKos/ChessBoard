@@ -200,8 +200,10 @@ namespace ChessBoard.Tests
 
 		static object[] GetTestCasesForAcceptableCells()
 		{
-			return PawnTestData.GetAcceptableCellsTestCases().Concat(
-				RookTestData.GetAcceptableCellsTestCases()).ToArray();
+			return PawnTestData.GetAcceptableCellsTestCases()
+				.Concat(RookTestData.GetAcceptableCellsTestCases())
+				.Concat(BishopTestData.GetAcceptableCellsTestCases())
+				.ToArray();
 		}
 
 		static bool AreActualCellsEqualToExpected(List<Cell> actualCells, List<Cell> expectedCells)

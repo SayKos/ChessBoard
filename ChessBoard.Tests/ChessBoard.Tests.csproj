@@ -60,6 +60,7 @@
     <Compile Include="ChessBoardBuilderTests.cs" />
     <Compile Include="ChessBoardTests.cs" />
     <Compile Include="ChessmanFactoryTests.cs" />
+    <Compile Include="TestDataClasses\BishopTestData.cs" />
     <Compile Include="TestDataClasses\KingTestData.cs" />
     <Compile Include="TestDataClasses\PawnTestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
