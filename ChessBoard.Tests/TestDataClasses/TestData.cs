@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using ChessBoard.Chessmens;
 
-namespace ChessBoard.Tests
+namespace ChessBoard.Tests.TestDataClasses
 {
 	class TestData
 	{

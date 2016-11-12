@@ -18,10 +18,7 @@ namespace ChessBoard.Chessmens
 			if (Color == Color.White && row == 0)
 				return true;
 
-			if (Color == Color.Black && row == 7)
-				return true;
-
-			return false;
+			return Color == Color.Black && row == 7;
 		}
 
 		public override bool Equals(object obj)

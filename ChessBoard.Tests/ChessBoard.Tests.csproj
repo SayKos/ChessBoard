@@ -60,9 +60,11 @@
     <Compile Include="ChessBoardBuilderTests.cs" />
     <Compile Include="ChessBoardTests.cs" />
     <Compile Include="ChessmanFactoryTests.cs" />
-    <Compile Include="PawnTestData.cs" />
+    <Compile Include="TestDataClasses\KingTestData.cs" />
+    <Compile Include="TestDataClasses\PawnTestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestData.cs" />
+    <Compile Include="TestDataClasses\RookTestData.cs" />
+    <Compile Include="TestDataClasses\TestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

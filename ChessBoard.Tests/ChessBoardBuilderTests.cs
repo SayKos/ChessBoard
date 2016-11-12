@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ChessBoard.Tests.TestDataClasses;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace ChessBoard.Tests

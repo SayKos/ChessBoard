@@ -58,6 +58,7 @@
     <Compile Include="Chessmens\Queen.cs" />
     <Compile Include="Chessmens\Rook.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

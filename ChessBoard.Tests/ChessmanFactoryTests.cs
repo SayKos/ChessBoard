@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ChessBoard.Chessmens;
+using ChessBoard.Tests.TestDataClasses;
 using NUnit.Framework;
 
 namespace ChessBoard.Tests

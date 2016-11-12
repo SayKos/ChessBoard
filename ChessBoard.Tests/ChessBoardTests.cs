@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ChessBoard.Chessmens;
+using ChessBoard.Tests.TestDataClasses;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -186,8 +187,8 @@ namespace ChessBoard.Tests
 			};
 		}
 
-		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCellsForPawn))]
-		public void TestGetAcceptableCellsForPawn(
+		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCells))]
+		public void TestGetAcceptableCells(
 			ChessBoard chessBoard, 
 			Cell cellOfPawnToTest, 
 			List<Cell> expectedCells, 
@@ -197,9 +198,10 @@ namespace ChessBoard.Tests
 			Assert.IsTrue(AreActualCellsEqualToExpected(actualCells, expectedCells));
 		}
 
-		static object[] GetTestCasesForAcceptableCellsForPawn()
+		static object[] GetTestCasesForAcceptableCells()
 		{
-			return PawnTestData.GetTestCasesForAcceptableCellsForPawn();
+			return PawnTestData.GetAcceptableCellsTestCases().Concat(
+				RookTestData.GetAcceptableCellsTestCases()).ToArray();
 		}
 
 		static bool AreActualCellsEqualToExpected(List<Cell> actualCells, List<Cell> expectedCells)

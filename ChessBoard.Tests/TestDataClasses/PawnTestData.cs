@@ -1,30 +1,30 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ChessBoard.Chessmens;
-using NUnit.Framework;
 
-namespace ChessBoard.Tests
+namespace ChessBoard.Tests.TestDataClasses
 {
 	class PawnTestData : TestData
 	{
-		public static object[] GetTestCasesForAcceptableCellsForPawn()
+		public static object[] GetAcceptableCellsTestCases()
 		{
+			var testsName = "Pawn tests - ";
+
 			return new object[]
 			{
-				new object[] { GetScenario_1(), new Cell(6, 3), GetCellsForScenario_1(), nameof(GetScenario_1) },
-				new object[] { GetScenario_2(), new Cell(1, 3), GetCellsForScenario_2(), nameof(GetScenario_2) },
-				new object[] { GetScenario_3(), new Cell(5, 3), GetCellsForScenario_3(), nameof(GetScenario_3) },
-				new object[] { GetScenario_4(), new Cell(2, 3), GetCellsForScenario_4(), nameof(GetScenario_4) },
-				new object[] { GetScenario_5(), new Cell(5, 3), GetCellsForScenario_5(), nameof(GetScenario_5) },
-				new object[] { GetScenario_6(), new Cell(5, 3), GetCellsForScenario_6(), nameof(GetScenario_6) },
-				new object[] { GetScenario_7(), new Cell(5, 3), GetCellsForScenario_7(), nameof(GetScenario_7) },
-				new object[] { GetScenario_8(), new Cell(2, 3), GetCellsForScenario_8(), nameof(GetScenario_8) },
-				new object[] { GetScenario_9(), new Cell(2, 3), GetCellsForScenario_9(), nameof(GetScenario_9) },
-				new object[] { GetScenario_10(), new Cell(2, 3), GetCellsForScenario_10(), nameof(GetScenario_10) },
-				new object[] { GetScenario_11(), new Cell(5, 3), GetCellsForScenario_11(), nameof(GetScenario_11) },
-				new object[] { GetScenario_12(), new Cell(4, 3), GetCellsForScenario_12(), nameof(GetScenario_12) },
-				new object[] { GetScenario_13(), new Cell(5, 3), GetCellsForScenario_13(), nameof(GetScenario_13) },
-				new object[] { GetScenario_14(), new Cell(4, 3), GetCellsForScenario_14(), nameof(GetScenario_14) },
+				new object[] { GetScenario_1(), new Cell(6, 3), GetCellsForScenario_1(), testsName + nameof(GetScenario_1) },
+				new object[] { GetScenario_2(), new Cell(1, 3), GetCellsForScenario_2(), testsName + nameof(GetScenario_2) },
+				new object[] { GetScenario_3(), new Cell(5, 3), GetCellsForScenario_3(), testsName + nameof(GetScenario_3) },
+				new object[] { GetScenario_4(), new Cell(2, 3), GetCellsForScenario_4(), testsName + nameof(GetScenario_4) },
+				new object[] { GetScenario_5(), new Cell(5, 3), GetCellsForScenario_5(), testsName + nameof(GetScenario_5) },
+				new object[] { GetScenario_6(), new Cell(5, 3), GetCellsForScenario_6(), testsName + nameof(GetScenario_6) },
+				new object[] { GetScenario_7(), new Cell(5, 3), GetCellsForScenario_7(), testsName + nameof(GetScenario_7) },
+				new object[] { GetScenario_8(), new Cell(2, 3), GetCellsForScenario_8(), testsName + nameof(GetScenario_8) },
+				new object[] { GetScenario_9(), new Cell(2, 3), GetCellsForScenario_9(), testsName + nameof(GetScenario_9) },
+				new object[] { GetScenario_10(), new Cell(2, 3), GetCellsForScenario_10(), testsName + nameof(GetScenario_10) },
+				new object[] { GetScenario_11(), new Cell(5, 3), GetCellsForScenario_11(), testsName + nameof(GetScenario_11) },
+				new object[] { GetScenario_12(), new Cell(4, 3), GetCellsForScenario_12(), testsName + nameof(GetScenario_12) },
+				new object[] { GetScenario_13(), new Cell(5, 3), GetCellsForScenario_13(), testsName + nameof(GetScenario_13) },
+				new object[] { GetScenario_14(), new Cell(4, 3), GetCellsForScenario_14(), testsName + nameof(GetScenario_14) },
 				
 				// todo: uncomment when shah will be done
 				//new object[] { GetScenario_15(), new Cell(5, 2), GetCellsForScenario_15(), nameof(GetScenario_15) },
@@ -818,7 +818,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
+			return SetupChessBoard(boardCells, GameStatus.ShahForWhite);
 		}
 
 		static List<Cell> GetCellsForScenario_19()
@@ -860,7 +860,7 @@ namespace ChessBoard.Tests
 				new BoardCell(7, 4, new King(Color.White))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.BlackTurn);
+			return SetupChessBoard(boardCells, GameStatus.ShahForBlack);
 		}
 
 		static List<Cell> GetCellsForScenario_20()
