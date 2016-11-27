@@ -4,7 +4,6 @@ using System.Linq;
 using ChessBoard.Chessmens;
 using ChessBoard.Tests.TestDataClasses;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace ChessBoard.Tests
 {
@@ -204,6 +203,7 @@ namespace ChessBoard.Tests
 				.Concat(RookTestData.GetAcceptableCellsTestCases())
 				.Concat(BishopTestData.GetAcceptableCellsTestCases())
 				.Concat(QueenTestData.GetAcceptableCellsTestCases())
+				.Concat(KnightTestData.GetAcceptableCellsTestCases())
 				.ToArray();
 		}
 

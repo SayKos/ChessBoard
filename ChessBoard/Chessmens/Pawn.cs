@@ -96,11 +96,13 @@ namespace ChessBoard.Chessmens
 
 		private void AddIfEnemyExistAndIfInBounds(BoardCell[,] board, int row, int collumn)
 		{
-			if (!IsCellInBounds(new Cell(row, collumn)))
+			var cell = new Cell(row, collumn);
+
+			if (!IsCellInBounds(cell))
 				return;
 
 			if (!board[row, collumn].IsEmpty() && board[row, collumn].Chessman.Color != Color)
-				acceptableCells.Add(new Cell(row, collumn));
+				acceptableCells.Add(cell);
 		}
 	}
 }

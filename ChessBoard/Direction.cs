@@ -1,6 +1,4 @@
 ﻿namespace ChessBoard
 {
-	public class Direction: Cell
-	{
-	}
+	public class Direction: Cell { }
 }

@@ -28,7 +28,42 @@ namespace ChessBoard.Chessmens
 
 		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
 		{
-			throw new NotImplementedException();
+			var acceptableCells = new List<Cell>();
+
+			Movement[] possibleMovements =
+			{
+				new Movement { Row = -1 , Column = -2 },
+				new Movement { Row = -1 , Column = 2 },
+				new Movement { Row = 1 , Column = -2 },
+				new Movement { Row = 1 , Column = 2 },
+				new Movement { Row = -2 , Column = -1 },
+				new Movement { Row = -2 , Column = 1 },
+				new Movement { Row = 2 , Column = -1 },
+				new Movement { Row = 2 , Column = 1 },
+			};
+
+			foreach (var possibleMovement in possibleMovements)
+			{
+				var testRow = currentCell.Row + possibleMovement.Row;
+				var testColumn = currentCell.Column + possibleMovement.Column;
+				var cell = new Cell(testRow, testColumn);
+
+				if(!IsCellInBounds(cell))
+					continue;
+
+				if (IfEmptyOrEnemy(boardCells, testRow, testColumn))
+					acceptableCells.Add(cell);
+			}
+
+			// todo: Adjust Acceptable Cells In Case Shah
+
+			return acceptableCells;
+		}
+
+		private bool IfEmptyOrEnemy(BoardCell[,] boardCells, int testRow, int testColumn)
+		{
+			return boardCells[testRow, testColumn].IsEmpty()
+			       || boardCells[testRow, testColumn].Chessman.Color != Color;
 		}
 	}
 }
