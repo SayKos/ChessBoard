@@ -26,7 +26,10 @@ namespace ChessBoard.Chessmens
 			return base.GetHashCode();
 		}
 
-		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
+		public override List<Cell> GetAcceptableCells(
+			BoardCell[,] boardCells, 
+			Cell currentCell,
+			bool needToCheckShah = true)
 		{
 			throw new NotImplementedException();
 		}

@@ -20,7 +20,7 @@ namespace ChessBoard
 		public ChessBoard(string serializedChessboard)
 		{
 			ChessBoard deserialisedChessBoard = JsonConvert.DeserializeObject<ChessBoard>(serializedChessboard);
-			ChessBoardBuilder.GetNormilizedBoardCells(deserialisedChessBoard.BoardCells);
+			ChessBoardBuilder.NormilizedBoardCells(deserialisedChessBoard.BoardCells);
 
 			BoardCells = deserialisedChessBoard.BoardCells;
 			Status = deserialisedChessBoard.Status;

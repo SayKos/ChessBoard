@@ -26,7 +26,10 @@ namespace ChessBoard.Chessmens
 			return base.GetHashCode();	
 		}
 
-		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
+		public override List<Cell> GetAcceptableCells(
+			BoardCell[,] boardCells, 
+			Cell currentCell, 
+			bool needToCheckShah = true)
 		{
 			Direction[] possibleDirections =
 			{
@@ -38,7 +41,8 @@ namespace ChessBoard.Chessmens
 
 			var acceptableCells = GetAcceptableCellsForLongMovements(boardCells, possibleDirections, currentCell);
 
-			// todo: Adjust Acceptable Cells In Case Shah
+			if (needToCheckShah)
+				AdjustAcceptableCellsInCaseShah(boardCells, acceptableCells, currentCell);
 
 			return acceptableCells;
 		}

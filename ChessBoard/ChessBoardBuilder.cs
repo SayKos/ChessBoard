@@ -31,7 +31,7 @@ namespace ChessBoard
 			return chessboard;
 		}
 
-		public static void GetNormilizedBoardCells(BoardCell[,] boardCells)
+		public static void NormilizedBoardCells(BoardCell[,] boardCells)
 		{
 			for (int row = 0; row <= 7; row++)
 			{

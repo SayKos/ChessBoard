@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace ChessBoard.Chessmens
 {
@@ -34,7 +36,10 @@ namespace ChessBoard.Chessmens
 			return hash;
 		}
 
-		public virtual List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
+		public virtual List<Cell> GetAcceptableCells(
+			BoardCell[,] boardCells, 
+			Cell currentCell, 
+			bool needToCheckShah = true)
 		{
 			throw new NotImplementedException();
 		}
@@ -81,6 +86,87 @@ namespace ChessBoard.Chessmens
 			}
 
 			return acceptableCells;
+		}
+
+		protected void AdjustAcceptableCellsInCaseShah(
+			BoardCell[,] boardCells, 
+			List<Cell> acceptableCells,
+			Cell currentCell)
+		{
+			Cell kingCell = FindKingCell(boardCells);
+
+			List<Cell> cellsToRemove = new List<Cell>();
+
+			foreach (var acceptableCell in acceptableCells)
+			{
+				BoardCell[,] testBoardCells = GetDeepCopyOfBoardCells(boardCells);
+
+				TestMoveChessman(testBoardCells, currentCell.Row, currentCell.Column, acceptableCell.Row, acceptableCell.Column);
+
+				List<Cell> enemyAcceptableCells = FindEnemyAcceptableCells(testBoardCells);
+
+				if (enemyAcceptableCells.Any(enemyCell => 
+					enemyCell.Row == kingCell.Row && enemyCell.Column == kingCell.Column))
+				{
+					cellsToRemove.Add(acceptableCell);
+				}
+			}
+
+			foreach (var cellToRemove in cellsToRemove)
+				acceptableCells.Remove(cellToRemove);
+		}
+
+		private Cell FindKingCell(BoardCell[,] boardCells)
+		{
+			for (int row = 0; row < 8; row++)
+			{
+				for (int column = 0; column < 8; column++)
+				{
+					BaseChessman chessman = boardCells[row, column].Chessman;
+
+					if (chessman is King && chessman.Color == Color)
+						return new Cell(row, column);
+				}
+			}
+
+			throw new ArgumentException("King has not found.");
+		}
+
+		private List<Cell> FindEnemyAcceptableCells(BoardCell[,] boardCells)
+		{
+			var enemyAcceptableCells = new List<Cell>();
+
+			for (var row = 0; row < 8; row++)
+			{
+				for (var column = 0; column < 8; column++)
+				{
+					BaseChessman chessman = boardCells[row, column].Chessman;
+
+					if(chessman == null || chessman.Color == Color || chessman is King)
+						continue;
+
+					var cell = new Cell(row, column);
+					enemyAcceptableCells.AddRange(chessman.GetAcceptableCells(boardCells, cell, false));
+				}
+			}
+
+			return enemyAcceptableCells;
+		}
+
+		private void TestMoveChessman(BoardCell[,] chessboard, int oldRow, int oldColumn, int newRow, int newColumn)
+		{
+			chessboard[newRow, newColumn].Chessman = chessboard[oldRow, oldColumn].Chessman;
+			chessboard[oldRow, oldColumn].Chessman = null;
+		}
+
+		private BoardCell[,] GetDeepCopyOfBoardCells(BoardCell[,] boardCells)
+		{
+			var serializedChessboard = JsonConvert.SerializeObject(boardCells);
+			var deserializedBoarCells = JsonConvert.DeserializeObject<BoardCell[,]>(serializedChessboard);
+
+			ChessBoardBuilder.NormilizedBoardCells(deserializedBoarCells);
+
+			return deserializedBoarCells;
 		}
 
 		private int GetStepsCoutForMovement(int direction, int movementSteps)

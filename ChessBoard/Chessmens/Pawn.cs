@@ -34,14 +34,18 @@ namespace ChessBoard.Chessmens
 			return base.GetHashCode();
 		}
 
-		public override List<Cell> GetAcceptableCells(BoardCell[,] boardCells, Cell currentCell)
+		public override List<Cell> GetAcceptableCells(
+			BoardCell[,] boardCells, 
+			Cell currentCell,
+			bool needToCheckShah = true)
 		{
 			acceptableCells = new List<Cell>();
 
 			AddFrontCellsIfPossible(boardCells, currentCell);
 			AddPositionsIfCanKillEnemy(boardCells, currentCell);
 
-			// todo: Adjust Acceptable Cells In Case Shah
+			if(needToCheckShah)
+				AdjustAcceptableCellsInCaseShah(boardCells, acceptableCells, currentCell);
 
 			return acceptableCells;
 		}

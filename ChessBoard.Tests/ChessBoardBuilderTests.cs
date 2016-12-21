@@ -24,7 +24,7 @@ namespace ChessBoard.Tests
 
 			ChessBoard deserialisedChessBoard = JsonConvert.DeserializeObject<ChessBoard>(serializedChessboard);
 
-			ChessBoardBuilder.GetNormilizedBoardCells(deserialisedChessBoard.BoardCells);
+			ChessBoardBuilder.NormilizedBoardCells(deserialisedChessBoard.BoardCells);
 
 			Assertions.AreBoardsMatch(initialChessBoard.BoardCells, deserialisedChessBoard.BoardCells);
 		}

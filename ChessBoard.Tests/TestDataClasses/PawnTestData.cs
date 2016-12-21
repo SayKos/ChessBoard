@@ -25,14 +25,12 @@ namespace ChessBoard.Tests.TestDataClasses
 				new object[] { GetScenario_12(), new Cell(4, 3), GetCellsForScenario_12(), testsName + nameof(GetScenario_12) },
 				new object[] { GetScenario_13(), new Cell(5, 3), GetCellsForScenario_13(), testsName + nameof(GetScenario_13) },
 				new object[] { GetScenario_14(), new Cell(4, 3), GetCellsForScenario_14(), testsName + nameof(GetScenario_14) },
-				
-				// todo: uncomment when shah will be done
-				//new object[] { GetScenario_15(), new Cell(5, 2), GetCellsForScenario_15(), nameof(GetScenario_15) },
-				//new object[] { GetScenario_16(), new Cell(5, 2), GetCellsForScenario_16(), nameof(GetScenario_16) },
-				//new object[] { GetScenario_17(), new Cell(2, 2), GetCellsForScenario_17(), nameof(GetScenario_17) },
-				//new object[] { GetScenario_18(), new Cell(2, 2), GetCellsForScenario_18(), nameof(GetScenario_18) },
-				//new object[] { GetScenario_19(), new Cell(6, 2), GetCellsForScenario_19(), nameof(GetScenario_19) },
-				//new object[] { GetScenario_20(), new Cell(1, 2), GetCellsForScenario_20(), nameof(GetScenario_20) }
+				new object[] { GetScenario_15(), new Cell(5, 2), GetCellsForScenario_15(), testsName + nameof(GetScenario_15) },
+				new object[] { GetScenario_16(), new Cell(5, 2), GetCellsForScenario_16(), testsName + nameof(GetScenario_16) },
+				new object[] { GetScenario_17(), new Cell(2, 2), GetCellsForScenario_17(), testsName + nameof(GetScenario_17) },
+				new object[] { GetScenario_18(), new Cell(2, 2), GetCellsForScenario_18(), testsName + nameof(GetScenario_18) },
+				new object[] { GetScenario_19(), new Cell(6, 2), GetCellsForScenario_19(), testsName + nameof(GetScenario_19) },
+				new object[] { GetScenario_20(), new Cell(1, 2), GetCellsForScenario_20(), testsName + nameof(GetScenario_20) }
 			};
 		}
 

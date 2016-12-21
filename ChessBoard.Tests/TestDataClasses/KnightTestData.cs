@@ -14,10 +14,8 @@ namespace ChessBoard.Tests.TestDataClasses
 				new object[] { GetScenario_1(), new Cell(4, 3), GetCellsForScenario_1(), testsName + nameof(GetScenario_1) },
 				new object[] { GetScenario_2(), new Cell(7, 0), GetCellsForScenario_2(), testsName + nameof(GetScenario_2) },
 				new object[] { GetScenario_3(), new Cell(4, 1), GetCellsForScenario_3(), testsName + nameof(GetScenario_3) },
-
-				// todo: uncomment when shah will be done
-				//new object[] { GetScenario_4(), new Cell(4, 2), GetCellsForScenario_4(), testsName + nameof(GetScenario_4) },
-				//new object[] { GetScenario_5(), new Cell(3, 2), GetCellsForScenario_5(), testsName + nameof(GetScenario_5) },
+				new object[] { GetScenario_4(), new Cell(4, 2), GetCellsForScenario_4(), testsName + nameof(GetScenario_4) },
+				new object[] { GetScenario_5(), new Cell(3, 2), GetCellsForScenario_5(), testsName + nameof(GetScenario_5) },
 			};
 		}
 

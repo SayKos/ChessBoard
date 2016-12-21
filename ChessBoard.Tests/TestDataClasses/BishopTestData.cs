@@ -14,10 +14,9 @@ namespace ChessBoard.Tests.TestDataClasses
 				new object[] { GetScenario_1(), new Cell(7, 0), GetCellsForScenario_1(), testsName + nameof(GetScenario_1) },
 				new object[] { GetScenario_2(), new Cell(4, 3), GetCellsForScenario_2(), testsName + nameof(GetScenario_2) },
 				new object[] { GetScenario_3(), new Cell(4, 2), GetCellsForScenario_3(), testsName + nameof(GetScenario_3) },
-
-				// todo: uncomment when shah will be done
-				//new object[] { GetScenario_4(), new Cell(2, 3), GetCellsForScenario_4(), testsName + nameof(GetScenario_4) },
-				//new object[] { GetScenario_5(), new Cell(3, 2), GetCellsForScenario_5(), testsName + nameof(GetScenario_5) }
+				new object[] { GetScenario_4(), new Cell(2, 3), GetCellsForScenario_4(), testsName + nameof(GetScenario_4) },
+				new object[] { GetScenario_5(), new Cell(3, 2), GetCellsForScenario_5(), testsName + nameof(GetScenario_5) },
+				new object[] { GetScenario_6(), new Cell(3, 2), GetCellsForScenario_6(), testsName + nameof(GetScenario_6) }
 			};
 		}
 
@@ -210,7 +209,7 @@ namespace ChessBoard.Tests.TestDataClasses
 		//			  _________________________________
 		//		4	  |   |   |   |   |BQ |   |   |   |
 		//			  _________________________________
-		//		5	  |   |   |   |   |   |   |   |   |
+		//		5	  |   |   |   |   | + |   |   |   |
 		//			  _________________________________
 		//		6	  |   |   |   |   |   |   |   |   |
 		//			  _________________________________
@@ -235,6 +234,49 @@ namespace ChessBoard.Tests.TestDataClasses
 		}
 
 		static List<Cell> GetCellsForScenario_5()
+		{
+			return new List<Cell>
+			{
+				new Cell(5, 4)
+			};
+		}
+
+		//			  _________________________________
+		//		0	  |   |   |   |   |BKI|   |   |   |
+		//		 	  _________________________________
+		//		1	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		2	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		3	  |   |   |WB |   |   |   |   |   |
+		//			  _________________________________
+		//		4	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		5	  |   |   |BQ |   |   |   |   |   |
+		//			  _________________________________
+		//		6	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		7	  |   |   |   |   |WKI|   |   |   |
+		//			  _________________________________
+		//			
+		//			
+		//			   0   1   2   3   4   5   6   7   
+
+		static ChessBoard GetScenario_6()
+		{
+			var boardCells = new[]
+			{
+				new BoardCell(0, 4, new King(Color.Black)),
+				new BoardCell(5, 2, new Queen(Color.Black)),
+
+				new BoardCell(7, 4, new King(Color.White)),
+				new BoardCell(3, 2, new Bishop(Color.White))
+			};
+
+			return SetupChessBoard(boardCells, GameStatus.ShahForWhite);
+		}
+
+		static List<Cell> GetCellsForScenario_6()
 		{
 			return new List<Cell>();
 		}

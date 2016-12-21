@@ -204,6 +204,7 @@ namespace ChessBoard.Tests
 				.Concat(BishopTestData.GetAcceptableCellsTestCases())
 				.Concat(QueenTestData.GetAcceptableCellsTestCases())
 				.Concat(KnightTestData.GetAcceptableCellsTestCases())
+				.Concat(KingTestData.GetAcceptableCellsTestCases())
 				.ToArray();
 		}
 
