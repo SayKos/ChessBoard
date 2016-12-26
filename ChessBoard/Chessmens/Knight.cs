@@ -63,11 +63,5 @@ namespace ChessBoard.Chessmens
 
 			return acceptableCells;
 		}
-
-		private bool IfEmptyOrEnemy(BoardCell[,] boardCells, int testRow, int testColumn)
-		{
-			return boardCells[testRow, testColumn].IsEmpty()
-			       || boardCells[testRow, testColumn].Chessman.Color != Color;
-		}
 	}
 }

@@ -9,6 +9,7 @@ namespace ChessBoard.Chessmens
 	{
 		public Color Color { get; set; }
 		public virtual ChessmenType Type { get; set; }
+		public bool Moved { get; set; } // todo: add test for Moved
 
 		public BaseChessman()
 		{ }
@@ -44,6 +45,18 @@ namespace ChessBoard.Chessmens
 			throw new NotImplementedException();
 		}
 
+		protected Direction[] AnyDirections =
+		{
+			new Direction {Row = -1, Column = -1},
+			new Direction {Row = -1, Column = 1},
+			new Direction {Row = 1, Column = -1},
+			new Direction {Row = 1, Column = 1},
+			new Direction {Row = -1, Column = 0},
+			new Direction {Row = 1, Column = 0},
+			new Direction {Row = 0, Column = -1},
+			new Direction {Row = 0, Column = 1}
+		};
+
 		protected bool IsCellInBounds(Cell cell)
 		{
 			return cell.Row >= 0 
@@ -52,19 +65,20 @@ namespace ChessBoard.Chessmens
 				&& cell.Column <= 7;
 		}
 
-		protected List<Cell> GetAcceptableCellsForLongMovements(
+		protected List<Cell> GetAcceptableCellsForDirections(
 			BoardCell[,] boardCells,
 			Direction[] possibleDirections,
-			Cell currentCell)
+			Cell currentCell,
+			int stepsCount = 8)
 		{
 			var acceptableCells = new List<Cell>();
 
 			foreach (var direction in possibleDirections)
 			{
-				for (var movementSteps = 0; movementSteps <= 7; movementSteps++)
+				for (var movementSteps = 0; movementSteps < stepsCount; movementSteps++)
 				{
-					int nextRow = currentCell.Row + GetStepsCoutForMovement(direction.Row, movementSteps);
-					int nextColumn = currentCell.Column + GetStepsCoutForMovement(direction.Column, movementSteps);
+					var nextRow = currentCell.Row + GetStepsCoutForMovement(direction.Row, movementSteps);
+					var nextColumn = currentCell.Column + GetStepsCoutForMovement(direction.Column, movementSteps);
 
 					if (!IsCellInBounds(new Cell(nextRow, nextColumn)))
 						break;
@@ -89,31 +103,41 @@ namespace ChessBoard.Chessmens
 		}
 
 		protected void AdjustAcceptableCellsInCaseShah(
-			BoardCell[,] boardCells, 
+			BoardCell[,] boardCells,
 			List<Cell> acceptableCells,
 			Cell currentCell)
 		{
-			Cell kingCell = FindKingCell(boardCells);
-
 			List<Cell> cellsToRemove = new List<Cell>();
 
 			foreach (var acceptableCell in acceptableCells)
-			{
-				BoardCell[,] testBoardCells = GetDeepCopyOfBoardCells(boardCells);
-
-				TestMoveChessman(testBoardCells, currentCell.Row, currentCell.Column, acceptableCell.Row, acceptableCell.Column);
-
-				List<Cell> enemyAcceptableCells = FindEnemyAcceptableCells(testBoardCells);
-
-				if (enemyAcceptableCells.Any(enemyCell => 
-					enemyCell.Row == kingCell.Row && enemyCell.Column == kingCell.Column))
-				{
+				if(IsCellUnderShah(boardCells, acceptableCell, currentCell))
 					cellsToRemove.Add(acceptableCell);
-				}
-			}
 
 			foreach (var cellToRemove in cellsToRemove)
 				acceptableCells.Remove(cellToRemove);
+		}
+
+		protected bool IsCellUnderShah(
+			BoardCell[,] boardCells,
+			Cell testAcceptableCells,
+			Cell currentCell)
+		{
+			BoardCell[,] testBoardCells = GetDeepCopyOfBoardCells(boardCells);
+
+			TestMoveChessman(testBoardCells, currentCell, testAcceptableCells);
+
+			Cell kingCell = FindKingCell(testBoardCells);
+
+			List<Cell> enemyAcceptableCells = FindEnemyAcceptableCells(testBoardCells);
+
+			return enemyAcceptableCells.Any(enemyCell =>
+				enemyCell.Row == kingCell.Row && enemyCell.Column == kingCell.Column);
+		}
+
+		protected bool IfEmptyOrEnemy(BoardCell[,] boardCells, int testRow, int testColumn)
+		{
+			return boardCells[testRow, testColumn].IsEmpty()
+				   || boardCells[testRow, testColumn].Chessman.Color != Color;
 		}
 
 		private Cell FindKingCell(BoardCell[,] boardCells)
@@ -153,10 +177,13 @@ namespace ChessBoard.Chessmens
 			return enemyAcceptableCells;
 		}
 
-		private void TestMoveChessman(BoardCell[,] chessboard, int oldRow, int oldColumn, int newRow, int newColumn)
+		private void TestMoveChessman(
+			BoardCell[,] chessboard,
+			Cell oldCell,
+			Cell newCell)
 		{
-			chessboard[newRow, newColumn].Chessman = chessboard[oldRow, oldColumn].Chessman;
-			chessboard[oldRow, oldColumn].Chessman = null;
+			chessboard[newCell.Row, newCell.Column].Chessman = chessboard[oldCell.Row, oldCell.Column].Chessman;
+			chessboard[oldCell.Row, oldCell.Column].Chessman = null;
 		}
 
 		private BoardCell[,] GetDeepCopyOfBoardCells(BoardCell[,] boardCells)

@@ -39,7 +39,7 @@ namespace ChessBoard.Chessmens
 				new Direction {Row = 0, Column = 1}
 			};
 
-			var acceptableCells = GetAcceptableCellsForLongMovements(boardCells, possibleDirections, currentCell);
+			var acceptableCells = GetAcceptableCellsForDirections(boardCells, possibleDirections, currentCell);
 
 			if (needToCheckShah)
 				AdjustAcceptableCellsInCaseShah(boardCells, acceptableCells, currentCell);

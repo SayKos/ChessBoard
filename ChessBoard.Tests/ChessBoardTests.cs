@@ -160,15 +160,20 @@ namespace ChessBoard.Tests
 
 			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
-			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(pawn, oldPosition, newPosition, chessmanType));
+			Assert.Throws(typeof(ArgumentException), () => 
+				chessBoard.MoveChessman(pawn, oldPosition, newPosition, chessmanType));
 		}
 
 		[Test, TestCaseSource(nameof(GetTestFailMovementsWithWrongColors))]
-		public void TestMoveChessmanFailWhenInconsistentGameStatusAndChessmanColor(ChessBoard chessBoard, Cell oldPosition, Cell newPosition)
+		public void TestMoveChessmanFailWhenInconsistentGameStatusAndChessmanColor(
+			ChessBoard chessBoard, 
+			Cell oldPosition, 
+			Cell newPosition)
 		{
 			var chessman = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
-			Assert.Throws(typeof(ArgumentException), () => chessBoard.MoveChessman(chessman, oldPosition, newPosition));
+			Assert.Throws(typeof(ArgumentException), () => 
+				chessBoard.MoveChessman(chessman, oldPosition, newPosition));
 		}
 
 		static object[] GetTestFailMovementsWithWrongColors()

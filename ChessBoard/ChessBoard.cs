@@ -43,6 +43,7 @@ namespace ChessBoard
 			FailIfWrongStatus(chessman);
 
 			// todo: check if cell is acceptable for the chessman - throw exception if not (and add test for this)
+			// todo: add additional movement in case castling
 
 			chessman = ChangeTypeInCasePawnAndPossible(chessman, newPosition, newType);
 

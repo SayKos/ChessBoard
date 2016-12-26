@@ -31,19 +31,7 @@ namespace ChessBoard.Chessmens
 			Cell currentCell,
 			bool needToCheckShah = true)
 		{
-			Direction[] possibleDirections =
-			{
-				new Direction {Row = -1, Column = -1},
-				new Direction {Row = -1, Column = 1},
-				new Direction {Row = 1, Column = -1},
-				new Direction {Row = 1, Column = 1},
-				new Direction {Row = -1, Column = 0},
-				new Direction {Row = 1, Column = 0},
-				new Direction {Row = 0, Column = -1},
-				new Direction {Row = 0, Column = 1}
-			};
-
-			var acceptableCells = GetAcceptableCellsForLongMovements(boardCells, possibleDirections, currentCell);
+			var acceptableCells = GetAcceptableCellsForDirections(boardCells, AnyDirections, currentCell);
 
 			if (needToCheckShah)
 				AdjustAcceptableCellsInCaseShah(boardCells, acceptableCells, currentCell);
