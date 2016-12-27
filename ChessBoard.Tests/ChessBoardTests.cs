@@ -194,11 +194,11 @@ namespace ChessBoard.Tests
 		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCells))]
 		public void TestGetAcceptableCells(
 			ChessBoard chessBoard, 
-			Cell cellOfPawnToTest, 
+			Cell cellToTest, 
 			List<Cell> expectedCells, 
 			string caseName)
 		{
-			var actualCells = chessBoard.GetAcceptableCells(cellOfPawnToTest);
+			var actualCells = chessBoard.GetAcceptableCells(cellToTest);
 			Assert.IsTrue(AreActualCellsEqualToExpected(actualCells, expectedCells));
 		}
 
@@ -219,6 +219,19 @@ namespace ChessBoard.Tests
 			var secondNotFirst = expectedCells.Except(actualCells).ToList();
 
 			return !firstNotSecond.Any() && !secondNotFirst.Any();
+		}
+
+		[Test]
+		public void SetMovedAfterMoveChessman()
+		{
+			var board = TestData.CreateNewChessBoard();
+			var oldPosition = new Cell(6, 0);
+			var newPosition = new Cell(5, 0);
+			var pawn = board.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+
+			board.MoveChessman(pawn, oldPosition, newPosition);
+
+			Assert.IsTrue(pawn.Moved);
 		}
 
 		// todo: check switching turn after moving (check all statuses)

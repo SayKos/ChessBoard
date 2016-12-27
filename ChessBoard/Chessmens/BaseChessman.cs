@@ -9,7 +9,7 @@ namespace ChessBoard.Chessmens
 	{
 		public Color Color { get; set; }
 		public virtual ChessmenType Type { get; set; }
-		public bool Moved { get; set; } // todo: add test for Moved
+		public bool Moved { get; set; }
 
 		public BaseChessman()
 		{ }
@@ -26,7 +26,7 @@ namespace ChessBoard.Chessmens
 
 			var chessmen = (BaseChessman)obj;
 
-			return chessmen.Color == Color && chessmen.Type == Type;
+			return chessmen.Color == Color && chessmen.Type == Type && chessmen.Moved == Moved;
 		}
 
 		public override int GetHashCode()

@@ -37,7 +37,11 @@ namespace ChessBoard
 			return JsonConvert.SerializeObject(this);
 		}
 
-		public void MoveChessman(BaseChessman chessman, Cell oldPosition, Cell newPosition, ChessmenType? newType = null)
+		public void MoveChessman(
+			BaseChessman chessman,
+			Cell oldPosition,
+			Cell newPosition,
+			ChessmenType? newType = null)
 		{
 			FailIfArgumnetsAreNull(chessman, oldPosition, newPosition);
 			FailIfWrongStatus(chessman);
@@ -49,6 +53,8 @@ namespace ChessBoard
 
 			BoardCells[oldPosition.Row, oldPosition.Column].Chessman = null;
 			BoardCells[newPosition.Row, newPosition.Column].Chessman = chessman;
+
+			chessman.Moved = true;
 
 			// todo: switch turn if correct status
 		}
