@@ -222,6 +222,15 @@ namespace ChessBoard.Tests
 		}
 
 		[Test]
+		public void TestGetAcceptableCellsFailWhenCellIsNull()
+		{
+			var board = TestData.CreateNewChessBoard();
+
+			Assert.Throws(typeof(ArgumentException), () =>
+				board.GetAcceptableCells(null));
+		}
+
+		[Test]
 		public void SetMovedAfterMoveChessman()
 		{
 			var board = TestData.CreateNewChessBoard();

@@ -78,6 +78,9 @@ namespace ChessBoard
 
 		public List<Cell> GetAcceptableCells(Cell cell)
 		{
+			if (cell == null)
+				throw new ArgumentException(nameof(cell));
+
 			var chessman = BoardCells[cell.Row, cell.Column].Chessman;
 
 			return chessman.GetAcceptableCells(BoardCells, cell);
