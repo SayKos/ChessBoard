@@ -71,6 +71,11 @@ namespace ChessBoard
 			return chessman.GetAcceptableCells(BoardCells, cell);
 		}
 
+		public void GiveUp(Color color)
+		{
+			Status = color == Color.White ? GameStatus.BlackWin : GameStatus.WhiteWin;
+		}
+
 		static void ChangeTypeInCasePawnAndPossible(
 			ref BaseChessman chessman,
 			Cell newPosition,

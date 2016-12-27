@@ -255,6 +255,24 @@ namespace ChessBoard.Tests
 			Assert.IsTrue(pawn.Moved);
 		}
 
+		[Test]
+		public void TestStatusAfterWhiteGiveUp()
+		{
+			var board = TestData.CreateNewChessBoard();
+			board.GiveUp(Color.White);
+
+			Assert.That(board.Status, Is.EqualTo(GameStatus.BlackWin));
+		}
+
+		[Test]
+		public void TestStatusAfterBlackGiveUp()
+		{
+			var board = TestData.GetChessBoardScenario_3_BlackTurn();
+			board.GiveUp(Color.Black);
+
+			Assert.That(board.Status, Is.EqualTo(GameStatus.WhiteWin));
+		}
+
 		// todo: check switching turn after moving (check all statuses)
 	}
 }
