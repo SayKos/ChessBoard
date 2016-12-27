@@ -191,6 +191,18 @@ namespace ChessBoard.Tests
 			};
 		}
 
+		[Test]
+		public void TestMoveChessmanFailWhenNewPositionIsNotAcceptable()
+		{
+			var board = TestData.CreateNewChessBoard();
+			var oldPosition = new Cell(6, 0);
+			var newPosition = new Cell(0, 7);
+			var pawn = board.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+
+			Assert.Throws(typeof(ArgumentException), () =>
+				board.MoveChessman(pawn, oldPosition, newPosition));
+		}
+
 		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCells))]
 		public void TestGetAcceptableCells(
 			ChessBoard chessBoard, 

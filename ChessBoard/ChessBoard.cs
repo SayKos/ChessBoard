@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ChessBoard.Chessmens;
 using Newtonsoft.Json;
 
@@ -45,6 +46,7 @@ namespace ChessBoard
 		{
 			FailIfArgumnetsAreNull(chessman, oldPosition, newPosition);
 			FailIfWrongStatus(chessman);
+			FailIfWrongNewMovementCell(oldPosition, newPosition);
 
 			// todo: check if cell is acceptable for the chessman - throw exception if not (and add test for this)
 			// todo: add additional movement in case castling
@@ -84,6 +86,14 @@ namespace ChessBoard
 			var chessman = BoardCells[cell.Row, cell.Column].Chessman;
 
 			return chessman.GetAcceptableCells(BoardCells, cell);
+		}
+
+		void FailIfWrongNewMovementCell(Cell oldPosition, Cell newPosition)
+		{
+			var acceptableCells = GetAcceptableCells(oldPosition);
+
+			if(!acceptableCells.Any(cell => cell.Equals(newPosition)))
+				throw new ArgumentException("New position for the chessman is not acceptable");
 		}
 
 		static void FailIfArgumnetsAreNull(BaseChessman chessman, Cell oldPosition, Cell newPosition)
