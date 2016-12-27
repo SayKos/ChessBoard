@@ -6,9 +6,8 @@
 		BlackTurn,
 		ShahForWhite,
 		ShahForBlack,
-		CheckmateForWhite,
-		CheckmateForBlack,
-		StalemateForWhite,
-		StalemateForBlack
+		WhiteWin,
+		BlackWin,
+		StalemateOrDraw
 	}
 }

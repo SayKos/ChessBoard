@@ -61,12 +61,22 @@ namespace ChessBoard
 			// todo: switch turn if correct status
 		}
 
+		public List<Cell> GetAcceptableCells(Cell cell)
+		{
+			if (cell == null)
+				throw new ArgumentException(nameof(cell));
+
+			var chessman = BoardCells[cell.Row, cell.Column].Chessman;
+
+			return chessman.GetAcceptableCells(BoardCells, cell);
+		}
+
 		static void ChangeTypeInCasePawnAndPossible(
-			ref BaseChessman chessman, 
-			Cell newPosition, 
+			ref BaseChessman chessman,
+			Cell newPosition,
 			ChessmenType? newType)
 		{
-			if (chessman.Type != ChessmenType.Pawn || !((Pawn) chessman).IsLastRow(newPosition.Row))
+			if (chessman.Type != ChessmenType.Pawn || !((Pawn)chessman).IsLastRow(newPosition.Row))
 				return;
 
 			if (!newType.HasValue)
@@ -76,16 +86,6 @@ namespace ChessBoard
 				throw new ArgumentException("New type can not be Pawn or King");
 
 			chessman = ChessmanFactory.TryToCreateChessman(chessman.Color, newType.Value);
-		}
-
-		public List<Cell> GetAcceptableCells(Cell cell)
-		{
-			if (cell == null)
-				throw new ArgumentException(nameof(cell));
-
-			var chessman = BoardCells[cell.Row, cell.Column].Chessman;
-
-			return chessman.GetAcceptableCells(BoardCells, cell);
 		}
 
 		void FailIfWrongNewMovementCell(Cell oldPosition, Cell newPosition)
@@ -114,10 +114,9 @@ namespace ChessBoard
 
 		bool IsGameOver()
 		{
-			return Status == GameStatus.CheckmateForWhite 
-				|| Status == GameStatus.CheckmateForBlack 
-				|| Status == GameStatus.StalemateForWhite
-				|| Status == GameStatus.StalemateForBlack;
+			return Status == GameStatus.WhiteWin 
+				|| Status == GameStatus.BlackWin 
+				|| Status == GameStatus.StalemateOrDraw;
 		}
 
 		bool IsMovementAvailableForColor(Color color)

@@ -231,7 +231,7 @@ namespace ChessBoard.Tests.TestDataClasses
 				new BoardCell(2, 1, new King(Color.Black))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.CheckmateForWhite);
+			return SetupChessBoard(boardCells, GameStatus.WhiteWin);
 		}
 
 		//			  _________________________________
@@ -264,7 +264,7 @@ namespace ChessBoard.Tests.TestDataClasses
 				new BoardCell(2, 1, new King(Color.White))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.CheckmateForBlack);
+			return SetupChessBoard(boardCells, GameStatus.BlackWin);
 		}
 
 		//			  _________________________________
@@ -297,7 +297,7 @@ namespace ChessBoard.Tests.TestDataClasses
 				new BoardCell(2, 1, new King(Color.White))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.StalemateForBlack);
+			return SetupChessBoard(boardCells, GameStatus.StalemateOrDraw);
 		}
 
 		//			  _________________________________
@@ -331,7 +331,7 @@ namespace ChessBoard.Tests.TestDataClasses
 				new BoardCell(2, 1, new King(Color.Black))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.StalemateForWhite);
+			return SetupChessBoard(boardCells, GameStatus.StalemateOrDraw);
 		}
 
 		//			  _________________________________
