@@ -55,12 +55,14 @@ namespace ChessBoard.Tests
 		[Test, TestCaseSource(nameof(GetTestMovements))]
 		public void TestMoveChessman(ChessBoard board, Cell oldCell, Cell newCell)
 		{
-			var chessman = board.BoardCells[oldCell.Row, oldCell.Column].Chessman;
+			var oldChessman = board.BoardCells[oldCell.Row, oldCell.Column].Chessman;
 
-			board.MoveChessman(chessman, oldCell, newCell);
+			board.MoveChessman(oldCell, newCell);
+
+			var newChessman = board.BoardCells[newCell.Row, newCell.Column].Chessman;
 
 			Assert.IsTrue(board.BoardCells[oldCell.Row, oldCell.Column].IsEmpty(), "Old cell shoul be empty after movement");
-			Assert.AreEqual(board.BoardCells[newCell.Row, newCell.Column].Chessman, chessman, "New position should have correct chessman");
+			Assert.AreEqual(oldChessman, newChessman, "New position should have correct chessman");
 		}
 
 		static object[] GetTestMovements()
@@ -73,22 +75,20 @@ namespace ChessBoard.Tests
 			};
 		}
 
-		[Test, TestCaseSource(nameof(GetTestFailParamsForMovements))]
-		public void TestMoveChessmanFailWhenChessmanIsNUll(BaseChessman chessman, Cell oldPosition, Cell newPosition)
+		[Test]
+		public void TestMoveChessmanFailWhenOldPositionIsNUll()
 		{
 			ChessBoard board = TestData.CreateNewChessBoard();
 
-			Assert.Throws(typeof(ArgumentException), () => board.MoveChessman(chessman, oldPosition, newPosition));
+			Assert.Throws(typeof(ArgumentException), () => board.MoveChessman(null, new Cell()));
 		}
 
-		static object[] GetTestFailParamsForMovements()
+		[Test]
+		public void TestMoveChessmanFailWhenNewPositionIsNUll()
 		{
-			return new object[]
-			{
-				new object[] { null, new Cell(), new Cell() },
-				new object[] { new Pawn(), null, new Cell() },
-				new object[] { new Pawn(), new Cell(), null }
-			};
+			ChessBoard board = TestData.CreateNewChessBoard();
+
+			Assert.Throws(typeof(ArgumentException), () => board.MoveChessman(new Cell(), null));
 		}
 
 		[Test, TestCaseSource(nameof(GetTestPawnMovementsOnLastRow))]
@@ -99,9 +99,7 @@ namespace ChessBoard.Tests
 			ChessmenType newChessmanType,
 			Type type)
 		{
-			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
-
-			chessBoard.MoveChessman(pawn, oldPosition, newPosition, newChessmanType);
+			chessBoard.MoveChessman(oldPosition, newPosition, newChessmanType);
 
 			var newChessman = chessBoard.BoardCells[newPosition.Row, newPosition.Column].Chessman;
 
@@ -134,10 +132,8 @@ namespace ChessBoard.Tests
 			Cell oldPosition = new Cell(1, 7);
 			Cell newPosition = new Cell(0, 7);
 
-			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
-
 			Assert.Throws(typeof(ArgumentException), () => 
-				chessBoard.MoveChessman(pawn, oldPosition, newPosition, chessmanType));
+				chessBoard.MoveChessman(oldPosition, newPosition, chessmanType));
 		}
 
 		static object[] GetWrongNewTypesForPawn()
@@ -158,10 +154,8 @@ namespace ChessBoard.Tests
 			Cell newPosition = new Cell(0, 7);
 			ChessmenType? chessmanType = null;
 
-			var pawn = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
-
 			Assert.Throws(typeof(ArgumentException), () => 
-				chessBoard.MoveChessman(pawn, oldPosition, newPosition, chessmanType));
+				chessBoard.MoveChessman(oldPosition, newPosition, chessmanType));
 		}
 
 		[Test, TestCaseSource(nameof(GetTestFailMovementsWithWrongColors))]
@@ -170,10 +164,8 @@ namespace ChessBoard.Tests
 			Cell oldPosition, 
 			Cell newPosition)
 		{
-			var chessman = chessBoard.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
-
 			Assert.Throws(typeof(ArgumentException), () => 
-				chessBoard.MoveChessman(chessman, oldPosition, newPosition));
+				chessBoard.MoveChessman(oldPosition, newPosition));
 		}
 
 		static object[] GetTestFailMovementsWithWrongColors()
@@ -197,10 +189,9 @@ namespace ChessBoard.Tests
 			var board = TestData.CreateNewChessBoard();
 			var oldPosition = new Cell(6, 0);
 			var newPosition = new Cell(0, 7);
-			var pawn = board.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
 			Assert.Throws(typeof(ArgumentException), () =>
-				board.MoveChessman(pawn, oldPosition, newPosition));
+				board.MoveChessman(oldPosition, newPosition));
 		}
 
 		[Test, TestCaseSource(nameof(GetTestCasesForAcceptableCells))]
@@ -248,9 +239,10 @@ namespace ChessBoard.Tests
 			var board = TestData.CreateNewChessBoard();
 			var oldPosition = new Cell(6, 0);
 			var newPosition = new Cell(5, 0);
-			var pawn = board.BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
-			board.MoveChessman(pawn, oldPosition, newPosition);
+			board.MoveChessman(oldPosition, newPosition);
+
+			var pawn = board.BoardCells[newPosition.Row, newPosition.Column].Chessman;
 
 			Assert.IsTrue(pawn.Moved);
 		}

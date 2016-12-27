@@ -39,18 +39,18 @@ namespace ChessBoard
 		}
 
 		public void MoveChessman(
-			BaseChessman chessman,
 			Cell oldPosition,
 			Cell newPosition,
 			ChessmenType? newType = null)
 		{
-			FailIfArgumnetsAreNull(chessman, oldPosition, newPosition);
-			FailIfWrongStatus(chessman);
-			FailIfWrongNewMovementCell(oldPosition, newPosition);
+			FailIfArgumnetsAreNull(oldPosition, newPosition);
 
-			// todo: check if cell is acceptable for the chessman - throw exception if not (and add test for this)
-			// todo: add additional movement in case castling
+			BaseChessman chessman = BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
+			FailIfWrongColorAndStatus(chessman.Color);
+			FailIfWrongNewPosition(oldPosition, newPosition);
+
+			MakeCastlingIfPossible(chessman, oldPosition, newPosition);
 			ChangeTypeInCasePawnAndPossible(ref chessman, newPosition, newType);
 
 			BoardCells[oldPosition.Row, oldPosition.Column].Chessman = null;
@@ -76,6 +76,14 @@ namespace ChessBoard
 			Status = color == Color.White ? GameStatus.BlackWin : GameStatus.WhiteWin;
 		}
 
+		static void MakeCastlingIfPossible(
+			BaseChessman chessman,
+			Cell oldPosition,
+			Cell newPosition)
+		{
+			// todo: implement
+		}
+
 		static void ChangeTypeInCasePawnAndPossible(
 			ref BaseChessman chessman,
 			Cell newPosition,
@@ -93,7 +101,7 @@ namespace ChessBoard
 			chessman = ChessmanFactory.TryToCreateChessman(chessman.Color, newType.Value);
 		}
 
-		void FailIfWrongNewMovementCell(Cell oldPosition, Cell newPosition)
+		void FailIfWrongNewPosition(Cell oldPosition, Cell newPosition)
 		{
 			var acceptableCells = GetAcceptableCells(oldPosition);
 
@@ -101,19 +109,19 @@ namespace ChessBoard
 				throw new ArgumentException("New position for the chessman is not acceptable");
 		}
 
-		static void FailIfArgumnetsAreNull(BaseChessman chessman, Cell oldPosition, Cell newPosition)
+		static void FailIfArgumnetsAreNull(Cell oldPosition, Cell newPosition)
 		{
-			if(chessman == null || oldPosition == null || newPosition == null)
-				throw new ArgumentException("chessman, oldPosition and newPosition should not by null.");
+			if(oldPosition == null || newPosition == null)
+				throw new ArgumentException("oldPosition and newPosition should not by null.");
 		}
 
-		void FailIfWrongStatus(BaseChessman chessman)
+		void FailIfWrongColorAndStatus(Color color)
 		{
 			if(IsGameOver())
 				throw new ArgumentException("Game over. It is not possible to move any chessman.");
 
-			if ((chessman.Color == Color.White && IsMovementAvailableForColor(Color.Black))
-				|| (chessman.Color == Color.Black && IsMovementAvailableForColor(Color.White)))
+			if ((color == Color.White && IsMovementAvailableForColor(Color.Black))
+				|| (color == Color.Black && IsMovementAvailableForColor(Color.White)))
 				throw new ArgumentException("Inconsistent game status and chessman color.");
 		}
 
