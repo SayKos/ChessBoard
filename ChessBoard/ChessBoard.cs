@@ -49,7 +49,7 @@ namespace ChessBoard
 			// todo: check if cell is acceptable for the chessman - throw exception if not (and add test for this)
 			// todo: add additional movement in case castling
 
-			chessman = ChangeTypeInCasePawnAndPossible(chessman, newPosition, newType);
+			ChangeTypeInCasePawnAndPossible(ref chessman, newPosition, newType);
 
 			BoardCells[oldPosition.Row, oldPosition.Column].Chessman = null;
 			BoardCells[newPosition.Row, newPosition.Column].Chessman = chessman;
@@ -59,13 +59,13 @@ namespace ChessBoard
 			// todo: switch turn if correct status
 		}
 
-		static BaseChessman ChangeTypeInCasePawnAndPossible(
-			BaseChessman chessman, 
+		static void ChangeTypeInCasePawnAndPossible(
+			ref BaseChessman chessman, 
 			Cell newPosition, 
 			ChessmenType? newType)
 		{
 			if (chessman.Type != ChessmenType.Pawn || !((Pawn) chessman).IsLastRow(newPosition.Row))
-				return chessman;
+				return;
 
 			if (!newType.HasValue)
 				throw new ArgumentException("New type should be set");
@@ -73,7 +73,7 @@ namespace ChessBoard
 			if (newType == ChessmenType.Pawn || newType == ChessmenType.King)
 				throw new ArgumentException("New type can not be Pawn or King");
 
-			return ChessmanFactory.TryToCreateChessman(chessman.Color, newType.Value);
+			chessman = ChessmanFactory.TryToCreateChessman(chessman.Color, newType.Value);
 		}
 
 		public List<Cell> GetAcceptableCells(Cell cell)
