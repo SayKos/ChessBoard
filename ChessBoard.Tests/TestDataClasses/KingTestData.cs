@@ -297,7 +297,7 @@ namespace ChessBoard.Tests.TestDataClasses
 		//			  _________________________________
 		//		6	  |   |   |   | + | + |   |   |   |
 		//			  _________________________________
-		//		7	  |WR |   |   | + |WKI| + |   |WR+|
+		//		7	  |WR |   |   | + |WKI| + |   |WR |
 		//			  _________________________________
 		//			
 		//			
@@ -322,7 +322,7 @@ namespace ChessBoard.Tests.TestDataClasses
 		{
 			return new List<Cell>
 			{
-				new Cell(7, 3), new Cell(6, 3), new Cell(6, 4), new Cell(7, 5), new Cell(7, 7)
+				new Cell(7, 3), new Cell(6, 3), new Cell(6, 4), new Cell(7, 5)
 			};
 		}
 

@@ -110,28 +110,35 @@ namespace ChessBoard.Chessmens
 			List<Cell> cellsToRemove = new List<Cell>();
 
 			foreach (var acceptableCell in acceptableCells)
-				if(IsCellUnderShah(boardCells, acceptableCell, currentCell))
+				if(IsKingUnderShah(boardCells, acceptableCell, currentCell))
 					cellsToRemove.Add(acceptableCell);
 
 			foreach (var cellToRemove in cellsToRemove)
 				acceptableCells.Remove(cellToRemove);
 		}
 
-		protected bool IsCellUnderShah(
+		protected bool IsKingUnderShah(
 			BoardCell[,] boardCells,
-			Cell testAcceptableCells,
+			Cell cellToCheck,
 			Cell currentCell)
 		{
-			BoardCell[,] testBoardCells = GetDeepCopyOfBoardCells(boardCells);
+			var testBoardCells = GetDeepCopyOfBoardCells(boardCells);
 
-			TestMoveChessman(testBoardCells, currentCell, testAcceptableCells);
+			TestMoveChessman(testBoardCells, currentCell, cellToCheck);
 
-			Cell kingCell = FindKingCell(testBoardCells);
+			var kingCell = FindKingCell(testBoardCells);
 
-			List<Cell> enemyAcceptableCells = FindEnemyAcceptableCells(testBoardCells);
+			return IsCellUnderShah(testBoardCells, kingCell);
+		}
+
+		protected bool IsCellUnderShah(
+			BoardCell[,] boardCells,
+			Cell cellToCheck)
+		{
+			var enemyAcceptableCells = FindEnemyAcceptableCells(boardCells);
 
 			return enemyAcceptableCells.Any(enemyCell =>
-				enemyCell.Row == kingCell.Row && enemyCell.Column == kingCell.Column);
+				enemyCell.Row == cellToCheck.Row && enemyCell.Column == cellToCheck.Column);
 		}
 
 		protected bool IfEmptyOrEnemy(BoardCell[,] boardCells, int testRow, int testColumn)

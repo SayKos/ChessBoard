@@ -53,12 +53,13 @@ namespace ChessBoard.Chessmens
 			if (Moved)
 				return acceptableCells;
 
-			// is under atack
+			if(IsCellUnderShah(boardCells, currentCell))
+				return acceptableCells;
 
 			var rookStartColumns = new int[] {0, 7};
 			foreach (var rookStartColumn in rookStartColumns)
 			{
-				var castlingCell = GetCastlingCell(boardCells, currentCell, rookStartColumn);
+				var castlingCell = GetCastlingCell(boardCells, rookStartColumn);
 				if (castlingCell != null)
 					acceptableCells.Add(castlingCell);
 			}
@@ -68,10 +69,9 @@ namespace ChessBoard.Chessmens
 
 		private Cell GetCastlingCell(
 			BoardCell[,] boardCells,
-			Cell currentCell,
-			int startColumn)
+			int rookStartColumn)
 		{
-			Rook rook = boardCells[StartRow, startColumn].Chessman as Rook;
+			Rook rook = boardCells[StartRow, rookStartColumn].Chessman as Rook;
 
 			if (rook == null)
 				return null;
@@ -79,34 +79,14 @@ namespace ChessBoard.Chessmens
 			if (rook.Moved)
 				return null;
 
-			if(!AreAllCellsBetweenRookAndKingEmpty(boardCells, startColumn))
+			if (!CellsBetweenRookAndKingAreEmptyAndAreNotUnderShah(boardCells, rookStartColumn))
 				return null;
 
-			if (AnyCellsBetweenRookAndKingIsUnderShah(boardCells, currentCell, startColumn))
-				return null;
-
-			return new Cell(StartRow, startColumn);
+			return new Cell(StartRow, rookStartColumn);
 		}
 
-		private bool AreAllCellsBetweenRookAndKingEmpty(
+		private bool CellsBetweenRookAndKingAreEmptyAndAreNotUnderShah(
 			BoardCell[,] boardCells,
-			int rookStartColumn)
-		{
-			var isLeftCastling = rookStartColumn == 0;
-
-			var start = isLeftCastling ? rookStartColumn : StartColumn;
-			var stop = isLeftCastling ? StartColumn : rookStartColumn;
-
-			for (var collumn = start + 1; collumn < stop; collumn++)
-				if (boardCells[StartRow, collumn].Chessman != null)
-					return false;
-
-			return true;
-		}
-
-		private bool AnyCellsBetweenRookAndKingIsUnderShah(
-			BoardCell[,] boardCells,
-			Cell currentCell,
 			int rookStartColumn)
 		{
 			var isLeftCastling = rookStartColumn == 0;
@@ -116,13 +96,14 @@ namespace ChessBoard.Chessmens
 
 			for (var collumn = start + 1; collumn < stop; collumn++)
 			{
-				var testCell = new Cell(StartRow, collumn);
+				if (boardCells[StartRow, collumn].Chessman != null)
+					return false;
 
-				if (IsCellUnderShah(boardCells, testCell, currentCell))
-					return true;
+				if (IsCellUnderShah(boardCells, new Cell(StartRow, collumn)))
+					return false;
 			}
 
-			return false;
+			return true;
 		}
 	}
 }
