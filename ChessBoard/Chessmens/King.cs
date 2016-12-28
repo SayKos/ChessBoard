@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace ChessBoard.Chessmens
 {
@@ -79,13 +77,18 @@ namespace ChessBoard.Chessmens
 			if (rook.Moved)
 				return null;
 
-			if (!CellsBetweenRookAndKingAreEmptyAndAreNotUnderShah(boardCells, rookStartColumn))
+			if (!CellsBetweenRookAndKingAreEmpty(boardCells, rookStartColumn))
 				return null;
 
-			return new Cell(StartRow, rookStartColumn);
+			var isLeftCastling = rookStartColumn == 0;
+
+			if (!KingCellsAreNotUnderShahWhileCastling(boardCells, isLeftCastling))
+				return null;
+
+			return new Cell(StartRow, GetNewKingColumn(isLeftCastling));
 		}
 
-		private bool CellsBetweenRookAndKingAreEmptyAndAreNotUnderShah(
+		private bool CellsBetweenRookAndKingAreEmpty(
 			BoardCell[,] boardCells,
 			int rookStartColumn)
 		{
@@ -98,12 +101,32 @@ namespace ChessBoard.Chessmens
 			{
 				if (boardCells[StartRow, collumn].Chessman != null)
 					return false;
+			}
 
+			return true;
+		}
+
+		private bool KingCellsAreNotUnderShahWhileCastling(
+			BoardCell[,] boardCells,
+			bool isLeftCastling)
+		{
+			var newKingColumn = GetNewKingColumn(isLeftCastling);
+
+			var start = isLeftCastling ? newKingColumn : StartColumn;
+			var stop = isLeftCastling ? StartColumn : newKingColumn;
+
+			for (var collumn = start; collumn < stop; collumn++)
+			{
 				if (IsCellUnderShah(boardCells, new Cell(StartRow, collumn)))
 					return false;
 			}
 
 			return true;
+		}
+
+		private int GetNewKingColumn(bool isLeftCastling)
+		{
+			return isLeftCastling ? 2 : 6;
 		}
 	}
 }
