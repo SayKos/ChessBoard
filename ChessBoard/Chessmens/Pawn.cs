@@ -50,7 +50,7 @@ namespace ChessBoard.Chessmens
 			return acceptableCells;
 		}
 
-		private void AddFrontCellsIfPossible(BoardCell[,] boardCells, Cell currentCell)
+		void AddFrontCellsIfPossible(BoardCell[,] boardCells, Cell currentCell)
 		{
 			var count = acceptableCells.Count;
 
@@ -60,13 +60,13 @@ namespace ChessBoard.Chessmens
 				AddNextFrontCellIfPossible(boardCells, currentCell, 2);
 		}
 
-		private bool NeedToCheckNextFrontCell(int currentRow)
+		bool NeedToCheckNextFrontCell(int currentRow)
 		{
 			int startRowPosition = Color == Color.White ? 6 : 1;
 			return currentRow == startRowPosition;
 		}
 
-		private void AddNextFrontCellIfPossible(BoardCell[,] boardCells, Cell currentCell, int nextRowCount)
+		void AddNextFrontCellIfPossible(BoardCell[,] boardCells, Cell currentCell, int nextRowCount)
 		{
 			var currentRow = currentCell.Row;
 			var currentColumn = currentCell.Column;
@@ -77,17 +77,17 @@ namespace ChessBoard.Chessmens
 				acceptableCells.Add(cell);
 		}
 
-		private int GetNextRowToTest(int nextRowCount, int currentRow)
+		int GetNextRowToTest(int nextRowCount, int currentRow)
 		{
 			return Color == Color.White ? currentRow - nextRowCount : currentRow + nextRowCount;
 		}
 
-		private bool IsCellEmptyAndInBounds(BoardCell[,] boardCells, Cell cell)
+		bool IsCellEmptyAndInBounds(BoardCell[,] boardCells, Cell cell)
 		{
 			return IsCellInBounds(cell) && boardCells[cell.Row, cell.Column].IsEmpty();
 		}
 
-		private void AddPositionsIfCanKillEnemy(BoardCell[,] chessboard, Cell currentCell)
+		void AddPositionsIfCanKillEnemy(BoardCell[,] chessboard, Cell currentCell)
 		{
 			var nextRow = GetNextRowToTest(1, currentCell.Row);
 
@@ -98,7 +98,7 @@ namespace ChessBoard.Chessmens
 			AddIfEnemyExistAndIfInBounds(chessboard, nextRow, testCollumn);
 		}
 
-		private void AddIfEnemyExistAndIfInBounds(BoardCell[,] board, int row, int collumn)
+		void AddIfEnemyExistAndIfInBounds(BoardCell[,] board, int row, int collumn)
 		{
 			var cell = new Cell(row, collumn);
 

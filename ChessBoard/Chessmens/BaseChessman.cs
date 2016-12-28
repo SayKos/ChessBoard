@@ -147,7 +147,7 @@ namespace ChessBoard.Chessmens
 				   || boardCells[testRow, testColumn].Chessman.Color != Color;
 		}
 
-		private Cell FindKingCell(BoardCell[,] boardCells)
+		Cell FindKingCell(BoardCell[,] boardCells)
 		{
 			for (int row = 0; row < 8; row++)
 			{
@@ -163,7 +163,7 @@ namespace ChessBoard.Chessmens
 			throw new ArgumentException("King has not found.");
 		}
 
-		private List<Cell> FindEnemyAcceptableCells(BoardCell[,] boardCells)
+		List<Cell> FindEnemyAcceptableCells(BoardCell[,] boardCells)
 		{
 			var enemyAcceptableCells = new List<Cell>();
 
@@ -184,7 +184,7 @@ namespace ChessBoard.Chessmens
 			return enemyAcceptableCells;
 		}
 
-		private void TestMoveChessman(
+		void TestMoveChessman(
 			BoardCell[,] chessboard,
 			Cell oldCell,
 			Cell newCell)
@@ -193,7 +193,7 @@ namespace ChessBoard.Chessmens
 			chessboard[oldCell.Row, oldCell.Column].Chessman = null;
 		}
 
-		private BoardCell[,] GetDeepCopyOfBoardCells(BoardCell[,] boardCells)
+		BoardCell[,] GetDeepCopyOfBoardCells(BoardCell[,] boardCells)
 		{
 			var serializedChessboard = JsonConvert.SerializeObject(boardCells);
 			var deserializedBoarCells = JsonConvert.DeserializeObject<BoardCell[,]>(serializedChessboard);
@@ -203,7 +203,7 @@ namespace ChessBoard.Chessmens
 			return deserializedBoarCells;
 		}
 
-		private int GetStepsCoutForMovement(int direction, int movementSteps)
+		int GetStepsCoutForMovement(int direction, int movementSteps)
 		{
 			if (direction == 0)
 				return 0;

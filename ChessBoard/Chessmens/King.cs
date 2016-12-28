@@ -5,8 +5,8 @@ namespace ChessBoard.Chessmens
 	public class King : BaseChessman
 	{
 		public override ChessmenType Type => ChessmenType.King;
-		private int StartRow => Color == Color.White ? 7 : 0;
-		private int StartColumn = 4;
+		int StartRow => Color == Color.White ? 7 : 0;
+		int StartColumn = 4;
 
 		public King()
 		{ }
@@ -42,7 +42,7 @@ namespace ChessBoard.Chessmens
 			return acceptableCells;
 		}
 
-		private List<Cell> GetCastlingAcceptableCells(
+		List<Cell> GetCastlingAcceptableCells(
 			BoardCell[,] boardCells,
 			Cell currentCell)
 		{
@@ -65,7 +65,7 @@ namespace ChessBoard.Chessmens
 			return acceptableCells;
 		}
 
-		private Cell GetCastlingCell(
+		Cell GetCastlingCell(
 			BoardCell[,] boardCells,
 			int rookStartColumn)
 		{
@@ -88,7 +88,7 @@ namespace ChessBoard.Chessmens
 			return new Cell(StartRow, GetNewKingColumn(isLeftCastling));
 		}
 
-		private bool CellsBetweenRookAndKingAreEmpty(
+		bool CellsBetweenRookAndKingAreEmpty(
 			BoardCell[,] boardCells,
 			int rookStartColumn)
 		{
@@ -106,7 +106,7 @@ namespace ChessBoard.Chessmens
 			return true;
 		}
 
-		private bool KingCellsAreNotUnderShahWhileCastling(
+		bool KingCellsAreNotUnderShahWhileCastling(
 			BoardCell[,] boardCells,
 			bool isLeftCastling)
 		{
@@ -124,7 +124,7 @@ namespace ChessBoard.Chessmens
 			return true;
 		}
 
-		private int GetNewKingColumn(bool isLeftCastling)
+		int GetNewKingColumn(bool isLeftCastling)
 		{
 			return isLeftCastling ? 2 : 6;
 		}
