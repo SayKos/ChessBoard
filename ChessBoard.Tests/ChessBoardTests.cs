@@ -265,6 +265,31 @@ namespace ChessBoard.Tests
 			Assert.That(board.Status, Is.EqualTo(GameStatus.WhiteWin));
 		}
 
+		[Test]
+		public void TestCastlingWhiteRightProcess()
+		{
+			var board = TestData.GetChessBoardScenario_10_BeforeWhiteRightCastling();
+
+			var oldKingCell = new Cell(7, 4);
+			var newKingCell = new Cell(7, 6);
+
+			var oldRookCell = new Cell(7, 7);
+			var newRookgCell = new Cell(7, 5);
+
+			board.MoveChessman(oldKingCell, newKingCell);
+
+			var oldKing = board.BoardCells[oldKingCell.Row, oldKingCell.Column].Chessman;
+			var oldRook = board.BoardCells[oldRookCell.Row, oldRookCell.Column].Chessman;
+
+			var king = board.BoardCells[newKingCell.Row, newKingCell.Column].Chessman;
+			var rook = board.BoardCells[newRookgCell.Row, newRookgCell.Column].Chessman;
+
+			Assert.IsNull(oldKing);
+			Assert.IsNull(oldRook);
+			Assert.True(king is King);
+			Assert.True(rook is Rook);
+		}
+
 		// todo: check switching turn after moving (check all statuses)
 	}
 }

@@ -45,7 +45,7 @@ namespace ChessBoard
 		{
 			FailIfArgumnetsAreNull(oldPosition, newPosition);
 
-			BaseChessman chessman = BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
+			var chessman = BoardCells[oldPosition.Row, oldPosition.Column].Chessman;
 
 			FailIfWrongColorAndStatus(chessman.Color);
 			FailIfWrongNewPosition(oldPosition, newPosition);
@@ -76,12 +76,27 @@ namespace ChessBoard
 			Status = color == Color.White ? GameStatus.BlackWin : GameStatus.WhiteWin;
 		}
 
-		static void MakeCastlingIfPossible(
+		void MakeCastlingIfPossible(
 			BaseChessman chessman,
 			Cell oldPosition,
 			Cell newPosition)
 		{
-			// todo: implement
+			if (chessman.Type != ChessmenType.King || !(chessman is King))
+				return;
+
+			var isCastling = Math.Abs(oldPosition.Column - newPosition.Column) == 2;
+
+			if(!isCastling)
+				return;
+
+			var isLeftCastling = oldPosition.Column > newPosition.Column;
+			var oldRookColumn = isLeftCastling ? 0 : 7;
+			var newRookColumn = isLeftCastling ? 3 : 5;
+
+			var rook = new Rook(chessman.Color);
+
+			BoardCells[oldPosition.Row, oldRookColumn].Chessman = null;
+			BoardCells[oldPosition.Row, newRookColumn].Chessman = rook;
 		}
 
 		static void ChangeTypeInCasePawnAndPossible(

@@ -335,6 +335,41 @@ namespace ChessBoard.Tests.TestDataClasses
 		}
 
 		//			  _________________________________
+		//		0	  |   |   |   |   |BKI|   |   |   |
+		//		 	  _________________________________
+		//		1	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		2	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		3	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		4	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		5	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		6	  |   |   |   |   |   |   |   |   |
+		//			  _________________________________
+		//		7	  |   |   |   |   |WKI|   |   |WR |
+		//			  _________________________________
+		//
+		//
+		//			   0   1   2   3   4   5   6   7   
+
+
+		public static ChessBoard GetChessBoardScenario_10_BeforeWhiteRightCastling()
+		{
+			var boardCells = new[]
+			{
+				new BoardCell(0, 4, new King(Color.Black)),
+
+				new BoardCell(7, 4, new King(Color.White)),
+				new BoardCell(7, 7, new Rook(Color.White))
+			};
+
+			return SetupChessBoard(boardCells, GameStatus.WhiteTurn);
+		}
+
+		//			  _________________________________
 		//		0	  |BR |BKN|BB |BQ |BKI|BB |BKN|BR |
 		//		 	  _________________________________
 		//		1	  |BP |BP |BP |BP |BP |BP |BP |BP |
