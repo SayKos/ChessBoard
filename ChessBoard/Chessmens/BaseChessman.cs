@@ -128,14 +128,15 @@ namespace ChessBoard.Chessmens
 
 			var kingCell = FindKingCell(testBoardCells);
 
-			return IsCellUnderShah(testBoardCells, kingCell);
+			return IsCellUnderShah(testBoardCells, kingCell, Color);
 		}
 
-		protected bool IsCellUnderShah(
+		internal static bool IsCellUnderShah(
 			BoardCell[,] boardCells,
-			Cell cellToCheck)
+			Cell cellToCheck,
+			Color color)
 		{
-			var enemyAcceptableCells = FindEnemyAcceptableCells(boardCells);
+			var enemyAcceptableCells = FindEnemyAcceptableCells(boardCells, color);
 
 			return enemyAcceptableCells.Any(enemyCell =>
 				enemyCell.Row == cellToCheck.Row && enemyCell.Column == cellToCheck.Column);
@@ -163,7 +164,7 @@ namespace ChessBoard.Chessmens
 			throw new ArgumentException("King has not found.");
 		}
 
-		List<Cell> FindEnemyAcceptableCells(BoardCell[,] boardCells)
+		static List<Cell> FindEnemyAcceptableCells(BoardCell[,] boardCells, Color color)
 		{
 			var enemyAcceptableCells = new List<Cell>();
 
@@ -173,7 +174,7 @@ namespace ChessBoard.Chessmens
 				{
 					BaseChessman chessman = boardCells[row, column].Chessman;
 
-					if(chessman == null || chessman.Color == Color || chessman is King)
+					if(chessman == null || chessman.Color == color || chessman is King)
 						continue;
 
 					var cell = new Cell(row, column);

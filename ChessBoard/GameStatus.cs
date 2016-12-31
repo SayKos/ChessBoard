@@ -8,6 +8,8 @@
 		ShahForBlack,
 		WhiteWin,
 		BlackWin,
-		StalemateOrDraw
+		StalemateForBlack,
+		StalemateForWhite,
+		Draw
 	}
 }

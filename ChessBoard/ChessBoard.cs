@@ -11,7 +11,9 @@ namespace ChessBoard
 		public BoardCell[,] BoardCells { get; set; }
 		public GameStatus Status;
 
-		public ChessBoard() { }
+		public ChessBoard()
+		{
+		}
 
 		public ChessBoard(BoardCell[,] boardCells)
 		{
@@ -38,7 +40,7 @@ namespace ChessBoard
 			return JsonConvert.SerializeObject(this);
 		}
 
-		public void MoveChessman(
+		public GameStatus MoveChessman(
 			Cell oldPosition,
 			Cell newPosition,
 			ChessmenType? newType = null)
@@ -53,12 +55,12 @@ namespace ChessBoard
 			MakeCastlingIfPossible(chessman, oldPosition, newPosition);
 			ChangeTypeInCasePawnAndPossible(ref chessman, newPosition, newType);
 
+			chessman.Moved = true;
+
 			BoardCells[oldPosition.Row, oldPosition.Column].Chessman = null;
 			BoardCells[newPosition.Row, newPosition.Column].Chessman = chessman;
 
-			chessman.Moved = true;
-
-			// todo: switch turn if correct status
+			return SwitchStatus(chessman.Color);
 		}
 
 		public List<Cell> GetAcceptableCells(Cell cell)
@@ -75,6 +77,77 @@ namespace ChessBoard
 		{
 			Status = color == Color.White ? GameStatus.BlackWin : GameStatus.WhiteWin;
 		}
+
+		public bool IsGameOver()
+		{
+			return Status == GameStatus.WhiteWin
+				|| Status == GameStatus.BlackWin
+				|| Status == GameStatus.StalemateForWhite
+				|| Status == GameStatus.StalemateForBlack
+				|| Status == GameStatus.Draw;
+		}
+
+		GameStatus SwitchStatus(Color currentColor)
+		{
+			var enemyColor = currentColor == Color.White ? Color.Black : Color.White;
+			var enemyKingBoardCell = King.FindKing(BoardCells, enemyColor);
+			var enemyKingCell = new Cell(enemyKingBoardCell.Row, enemyKingBoardCell.Column);
+			var enemyAcceptableCells = GetAllAcceptableCells(enemyColor);
+
+			if (BaseChessman.IsCellUnderShah(BoardCells, enemyKingCell, enemyColor))
+			{
+				if (enemyAcceptableCells.Any())
+					return currentColor == Color.White ? GameStatus.ShahForBlack : GameStatus.ShahForWhite;
+
+				return currentColor == Color.White ? GameStatus.WhiteWin : GameStatus.BlackWin;
+			}
+
+			if (!enemyAcceptableCells.Any())
+				return currentColor == Color.White ? GameStatus.StalemateForBlack : GameStatus.StalemateForWhite;
+
+			if(AreOnlyKingOnTheBoard())
+				return GameStatus.Draw;
+
+			return currentColor == Color.White ? GameStatus.BlackTurn : GameStatus.WhiteTurn;
+		}
+
+		bool AreOnlyKingOnTheBoard()
+		{
+			var chessmanCount = 0;
+
+			for (var row = 0; row < 8; row++)
+				for (var collumn = 0; collumn < 8; collumn++)
+					if (BoardCells[row, collumn].Chessman != null)
+						chessmanCount++;
+
+			return chessmanCount == 2;
+		}
+
+		List<Cell> GetAllAcceptableCells(Color currentColor)
+		{
+			var allAcceptableCells = new List<Cell>();
+
+			for (var row = 0; row < 8; row++)
+			{
+				for (var collumn = 0; collumn < 8; collumn++)
+				{
+					if (BoardCells[row, collumn].Chessman == null)
+						continue;
+
+					if (BoardCells[row, collumn].Chessman.Color != currentColor)
+						continue;
+
+					var cell = new Cell(BoardCells[row, collumn].Row, BoardCells[row, collumn].Column);
+
+					var acceptableCells = GetAcceptableCells(cell);
+
+					if (acceptableCells != null && acceptableCells.Any())
+						allAcceptableCells.AddRange(acceptableCells);
+				}
+			}
+
+			return allAcceptableCells;
+		} 
 
 		void MakeCastlingIfPossible(
 			BaseChessman chessman,
@@ -138,13 +211,6 @@ namespace ChessBoard
 			if ((color == Color.White && IsMovementAvailableForColor(Color.Black))
 				|| (color == Color.Black && IsMovementAvailableForColor(Color.White)))
 				throw new ArgumentException("Inconsistent game status and chessman color.");
-		}
-
-		bool IsGameOver()
-		{
-			return Status == GameStatus.WhiteWin 
-				|| Status == GameStatus.BlackWin 
-				|| Status == GameStatus.StalemateOrDraw;
 		}
 
 		bool IsMovementAvailableForColor(Color color)

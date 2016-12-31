@@ -297,7 +297,7 @@ namespace ChessBoard.Tests.TestDataClasses
 				new BoardCell(2, 1, new King(Color.White))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.StalemateOrDraw);
+			return SetupChessBoard(boardCells, GameStatus.StalemateForBlack);
 		}
 
 		//			  _________________________________
@@ -331,7 +331,7 @@ namespace ChessBoard.Tests.TestDataClasses
 				new BoardCell(2, 1, new King(Color.Black))
 			};
 
-			return SetupChessBoard(boardCells, GameStatus.StalemateOrDraw);
+			return SetupChessBoard(boardCells, GameStatus.StalemateForWhite);
 		}
 
 		//			  _________________________________

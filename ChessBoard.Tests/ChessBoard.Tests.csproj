@@ -67,6 +67,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDataClasses\QueenTestData.cs" />
     <Compile Include="TestDataClasses\RookTestData.cs" />
+    <Compile Include="TestDataClasses\StatusTestData.cs" />
+    <Compile Include="TestDataClasses\StatusTestModel.cs" />
     <Compile Include="TestDataClasses\TestData.cs" />
   </ItemGroup>
   <ItemGroup>

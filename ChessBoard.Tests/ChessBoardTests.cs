@@ -202,7 +202,7 @@ namespace ChessBoard.Tests
 			string caseName)
 		{
 			var actualCells = chessBoard.GetAcceptableCells(cellToTest);
-			Assert.IsTrue(AreActualCellsEqualToExpected(actualCells, expectedCells));
+			Assert.IsTrue(AreActualCellsEqualToExpected(actualCells, expectedCells), caseName);
 		}
 
 		static object[] GetTestCasesForAcceptableCells()
@@ -290,6 +290,18 @@ namespace ChessBoard.Tests
 			Assert.True(rook is Rook);
 		}
 
-		// todo: check switching turn after moving (check all statuses)
+		[Test, TestCaseSource(nameof(GetTestCases))]
+		public void SwitchStatusTest(StatusTestModel model, string testName)
+		{
+			var board = model.InitialBoard;
+			var resultStatus = board.MoveChessman(model.FromCell, model.ToCell);
+
+			Assert.That(resultStatus, Is.EqualTo(model.ResultStatus));
+		}
+
+		private static object[] GetTestCases()
+		{
+			return StatusTestData.GetTestCases().ToArray();
+		}
 	}
 }

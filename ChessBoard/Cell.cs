@@ -1,4 +1,6 @@
-﻿namespace ChessBoard
+﻿using System;
+
+namespace ChessBoard
 {
 	public class Cell
 	{
@@ -34,6 +36,21 @@
 		public override string ToString()
 		{
 			return $"Row: {Row}, Column: {Column}";
+		}
+
+		public bool IsNextTo(Cell cell)
+		{
+			var rowDistance = Math.Abs(Row - cell.Row);
+
+			if (rowDistance > 1)
+				return false;
+
+			var columnDistance = Math.Abs(Column - cell.Column);
+
+			if (columnDistance > 1)
+				return false;
+
+			return true;
 		}
 	}
 }

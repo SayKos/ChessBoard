@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChessBoard.Chessmens
 {
@@ -39,7 +40,38 @@ namespace ChessBoard.Chessmens
 			if (needToCheckShah)
 				AdjustAcceptableCellsInCaseShah(boardCells, acceptableCells, currentCell);
 
+			AdjustCellsInCaseNearEnemyKing(boardCells, acceptableCells, currentCell);
+
 			return acceptableCells;
+		}
+
+		void AdjustCellsInCaseNearEnemyKing(
+			BoardCell[,] boardCells, 
+			List<Cell> acceptableCells, 
+			Cell currentCell)
+		{
+			var currentKingBoardCell = boardCells[currentCell.Row, currentCell.Column];
+			var enemyColor = currentKingBoardCell.Chessman.Color == Color.White ? Color.Black : Color.White;
+			var enemyKingBoardCell = FindKing(boardCells, enemyColor);
+			var enemyKingCell = new Cell(enemyKingBoardCell.Row, enemyKingBoardCell.Column);
+
+			acceptableCells.RemoveAll(cell => cell.IsNextTo(enemyKingCell));
+		}
+
+		public static BoardCell FindKing(BoardCell[,] boardCells, Color currentColor)
+		{
+			for (var row = 0; row < 8; row++)
+			{
+				for (var collumn = 0; collumn < 8; collumn++)
+				{
+					var chessman = boardCells[row, collumn].Chessman;
+
+					if (chessman is King && chessman.Color == currentColor)
+						return new BoardCell(row, collumn, chessman as King);
+				}
+			}
+
+			throw new ArgumentException("King was not found.");
 		}
 
 		List<Cell> GetCastlingAcceptableCells(
@@ -51,7 +83,7 @@ namespace ChessBoard.Chessmens
 			if (Moved)
 				return acceptableCells;
 
-			if(IsCellUnderShah(boardCells, currentCell))
+			if(IsCellUnderShah(boardCells, currentCell, Color))
 				return acceptableCells;
 
 			var rookStartColumns = new int[] {0, 7};
@@ -116,10 +148,8 @@ namespace ChessBoard.Chessmens
 			var stop = isLeftCastling ? StartColumn : newKingColumn;
 
 			for (var collumn = start; collumn < stop; collumn++)
-			{
-				if (IsCellUnderShah(boardCells, new Cell(StartRow, collumn)))
+				if (IsCellUnderShah(boardCells, new Cell(StartRow, collumn), Color))
 					return false;
-			}
 
 			return true;
 		}
